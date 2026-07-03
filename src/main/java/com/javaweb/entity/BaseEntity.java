@@ -1,8 +1,5 @@
 package com.javaweb.entity;
 
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.MappedSuperclass;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -13,15 +10,14 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@MappedSuperclass perclass
-@EntityListeners() steners(AuditingEntityListener .class)
+@MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = -863164858986274318L;
 
     @Id
-    @GeneratedValue
-    edValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "createddate")
