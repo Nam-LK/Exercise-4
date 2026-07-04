@@ -1,12 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Admin
-  Date: 7/3/2026
-  Time: 11:30 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglib.jsp" %>
+<c:url var = "buildingListURL" value="/admin/building-list" />
 <html>
 <head>
     <title>Danh sách tòa nhà</title>
@@ -54,17 +48,18 @@
                             </div>
 
                             <div class="widget-body" style="font-family: 'Times New Roman', Times, serif">
-                                <div class="widget-main" id="listForm">
-                                    <div class="row">
+                                <div class="widget-main">
+                                    <form:form id="listForm" action="${buildingListURL}" method="get">
+                                        <div class="row">
                                         <div class="form-group">
                                             <div class="col-xs-12">
                                                 <div class="col-xs-6">
                                                     <label for="" class="name">Tên tòa nhà</label>
-                                                    <input type="text" class="form-control" name="name" id="name">
+                                                    <input type="text" class="form-control" name="name" id="name" value="">
                                                 </div>
                                                 <div class="col-xs-6">
                                                     <label for="" class="name">Diện tích sàn</label>
-                                                    <input type="number" class="form-control">
+                                                    <input type="number" class="form-control" name="floorArea" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -75,18 +70,18 @@
                                                     <label for="" class="name">Quận</label>
                                                     <select class="form-control">
                                                         <option value="">----Chọn quận---</option>
-                                                        <option value="">Quận 1</option>
-                                                        <option value="">Quận 2</option>
-                                                        <option value="">Quận 3</option>
+                                                        <option value="Quan_1">Quận 1</option>
+                                                        <option value="Quan_2">Quận 2</option>
+                                                        <option value="Quan_3">Quận 3</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-xs-5">
                                                     <label for="" class="name">Phường</label>
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="ward" value="">
                                                 </div>
                                                 <div class="col-xs-5">
                                                     <label for="" class="name">Đường</label>
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="street" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -95,15 +90,15 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-4">
                                                     <label for="" class="name">Số tầng hầm</label>
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="numberOfBasement" value="">
                                                 </div>
                                                 <div class="col-xs-4">
                                                     <label for="" class="name">Hướng</label>
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="direction" value="">
                                                 </div>
                                                 <div class="col-xs-4">
                                                     <label for="" class="name">Hạng</label>
-                                                    <input type="number" class="form-control">
+                                                    <input type="number" class="form-control" name="level" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -112,19 +107,19 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-3">
                                                     <label for="" class="name">Diện tích từ</label>
-                                                    <input type="number" class="form-control">
+                                                    <input type="number" class="form-control" name="areaFrom" value="">
                                                 </div>
                                                 <div class="col-xs-3">
                                                     <label for="" class="name">Diện tích đến</label>
-                                                    <input type="number" class="form-control">
+                                                    <input type="number" class="form-control" name="areaTo" value="">
                                                 </div>
                                                 <div class="col-xs-3">
                                                     <label for="" class="name">Giá thuê từ</label>
-                                                    <input type="number" class="form-control">
+                                                    <input type="number" class="form-control" name="rentPriceFrom" value="">
                                                 </div>
                                                 <div class="col-xs-3">
                                                     <label for="" class="name">Giá thuê đến</label>
-                                                    <input type="number" class="form-control">
+                                                    <input type="number" class="form-control" name="rentPriceTo" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -133,18 +128,18 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-5">
                                                     <label for="" class="name">Tên quản lý</label>
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="managerName" value="">
                                                 </div>
                                                 <div class="col-xs-5">
                                                     <label for="" class="name">Điện thoại quản lý</label>
-                                                    <input type="number" class="form-control">
+                                                    <input type="number" class="form-control" name="managerPhone" value="">
                                                 </div>
                                                 <div class="col-xs-2">
                                                     <label for="" class="name">Chọn nhân viên phụ trách</label>
                                                     <select name="" id="">
                                                         <option value=""> --Chọn nhân viên-- </option>
-                                                        <option value="">Nhân viên A </option>
-                                                        <option value=""> Nhân viên B</option>
+                                                        <option value="1">Nhân viên A </option>
+                                                        <option value="2"> Nhân viên B</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -154,13 +149,13 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-6">
                                                     <label for="" class="checkbox-inline">
-                                                        <input type="checkbox"> Nội thất
+                                                        <input name="typeCode" type="checkbox" value="noi-that"> Nội thất
                                                     </label>
                                                     <label for="" class="checkbox-inline">
-                                                        <input type="checkbox"> Nguyên căn
+                                                        <input name="typeCode" type="checkbox" value="nguyen-can"> Nguyên căn
                                                     </label>
                                                     <label for="" class="checkbox-inline">
-                                                        <input type="checkbox"> Tầng trệt
+                                                        <input name="typeCode" type="checkbox" value="tang-tret"> Tầng trệt
                                                     </label>
                                                 </div>
                                             </div>
@@ -169,13 +164,16 @@
                                         <div class="form-group">
                                             <div class="col-xs-12">
                                                 <div class="col-xs-6">
-                                                    <button type="button" class="btn btn-danger" fdprocessedid="ibanxr" id="btnSearchBuilding ">
+                                                    <button type="button" class="btn btn-xs btn-danger" id="btnSearchBuilding">
                                                         <i class="ace-icon fa fa-search nav-search-icon"></i>Tìm kiếm
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
+                                    </form:form>
+
                                 </div>
                             </div>
 
@@ -397,7 +395,7 @@
     </div>
 </div><!-- /.main-content -->
 
-<div class="modal fade" id="assignmentBuildingModel" role="dialog" style="font-family: 'Times New Roman', Times, serif;">
+<div class="modal fade" id="assignmentBuildingModal" role="dialog" style="font-family: 'Times New Roman', Times, serif;">
     <div class="modal-dialog">
         <!-- Modal content -->
         <div class="modal-content">
@@ -441,6 +439,29 @@
 
     </div>
 </div>
+<script>
+    function assignmentBuilding(buildingid){
+        $('#assignmentBuildingModal').modal();
+        $('buildingId').val();
 
+    }
+
+    $('#btnassignmentBuilding').click(function(e){
+        e.preventDefault();
+        var data = {};
+        data['buildingId'] = $('#buildingId').val();
+        var staffs = $('#staffList').find('tbody input[type = checkbox]:checked').map(function(){
+            return $(this.val());
+        }).get();
+        data['staffs'] = staffs;
+    });
+
+    $('#btnSearchBuilding').click(function(e){
+        e.preventDefault();
+        $('#listForm').submit();
+    });
+
+</script>
 </body>
+
 </html>

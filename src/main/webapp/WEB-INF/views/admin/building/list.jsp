@@ -1,12 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Admin
-  Date: 7/3/2026
-  Time: 11:30 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglib.jsp" %>
+<c:url var = "buildingListURL" value="/admin/building-list" />
 <html>
 <head>
     <title>Danh sách tòa nhà</title>
@@ -54,17 +48,21 @@
                             </div>
 
                             <div class="widget-body" style="font-family: 'Times New Roman', Times, serif">
-                                <div class="widget-main" id="listForm">
-                                    <div class="row">
+                                <div class="widget-main">
+                                    <form:form id="listForm" action="${buildingListURL}" method="get" modelAttribute="modelSearch">  <!--modelAttribute se
+                                    cầm cái dto mình vừa gửi param vào fe để gắn vào các value cho input html để lưu dữ liệu mình mới nhập-->
+                                        <div class="row">
                                         <div class="form-group">
                                             <div class="col-xs-12">
                                                 <div class="col-xs-6">
                                                     <label for="" class="name">Tên tòa nhà</label>
-                                                    <input type="text" class="form-control" name="name" id="name">
+<%--                                                    <input type="text" class="form-control" name="name" id="name" value="${modelSearch.name}">--%>
+                                                    <form:input class = "form-control" path="name" /> <!--sử dụng input của spring-->
                                                 </div>
                                                 <div class="col-xs-6">
                                                     <label for="" class="name">Diện tích sàn</label>
-                                                    <input type="number" class="form-control">
+<%--                                                    <input type="number" class="form-control" name="floorArea" value="${modelSearch.floorArea}">--%>
+                                                    <form:input class = "form-control" path="floorArea" />
                                                 </div>
                                             </div>
                                         </div>
@@ -73,20 +71,28 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-2">
                                                     <label for="" class="name">Quận</label>
-                                                    <select class="form-control">
-                                                        <option value="">----Chọn quận---</option>
-                                                        <option value="">Quận 1</option>
-                                                        <option value="">Quận 2</option>
-                                                        <option value="">Quận 3</option>
-                                                    </select>
+<%--                                                    <select class="form-control" name="district">--%>
+<%--                                                        <option value="">----Chọn quận---</option>--%>
+<%--                                                        <option value="Quan_1">Quận 1</option>--%>
+<%--                                                        <option value="Quan_2">Quận 2</option>--%>
+<%--                                                        <option value="Quan_3">Quận 3</option>--%>
+<%--                                                    </select>--%>
+                                                    <form:select class="form-control" path="district">
+                                                        <form:option value=""> --- Chon Quận --- </form:option>
+                                                        <form:option value="Quan_1">Quận 1</form:option>
+                                                        <form:option value="Quan_2">Quận 2</form:option>
+                                                        <form:option value="Quan_3">Quận 3</form:option>
+                                                        <form:option value="Quan_10">Quận 10</form:option>
+                                                    </form:select>
                                                 </div>
+
                                                 <div class="col-xs-5">
                                                     <label for="" class="name">Phường</label>
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="ward" value="${modelSearch.ward}">
                                                 </div>
                                                 <div class="col-xs-5">
                                                     <label for="" class="name">Đường</label>
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="street" value="${modelSearch.street}">
                                                 </div>
                                             </div>
                                         </div>
@@ -95,15 +101,15 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-4">
                                                     <label for="" class="name">Số tầng hầm</label>
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="numberOfBasement" value="${modelSearch.numberOfBasement}">
                                                 </div>
                                                 <div class="col-xs-4">
                                                     <label for="" class="name">Hướng</label>
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="direction" value="${modelSearch.direction}">
                                                 </div>
                                                 <div class="col-xs-4">
                                                     <label for="" class="name">Hạng</label>
-                                                    <input type="number" class="form-control">
+                                                    <input type="number" class="form-control" name="level" value="${modelSearch.level}">
                                                 </div>
                                             </div>
                                         </div>
@@ -112,19 +118,19 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-3">
                                                     <label for="" class="name">Diện tích từ</label>
-                                                    <input type="number" class="form-control">
+                                                    <input type="number" class="form-control" name="areaFrom" value="">
                                                 </div>
                                                 <div class="col-xs-3">
                                                     <label for="" class="name">Diện tích đến</label>
-                                                    <input type="number" class="form-control">
+                                                    <input type="number" class="form-control" name="areaTo" value="">
                                                 </div>
                                                 <div class="col-xs-3">
                                                     <label for="" class="name">Giá thuê từ</label>
-                                                    <input type="number" class="form-control">
+                                                    <input type="number" class="form-control" name="rentPriceFrom" value="">
                                                 </div>
                                                 <div class="col-xs-3">
                                                     <label for="" class="name">Giá thuê đến</label>
-                                                    <input type="number" class="form-control">
+                                                    <input type="number" class="form-control" name="rentPriceTo" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -133,18 +139,18 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-5">
                                                     <label for="" class="name">Tên quản lý</label>
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="managerName" value="">
                                                 </div>
                                                 <div class="col-xs-5">
                                                     <label for="" class="name">Điện thoại quản lý</label>
-                                                    <input type="number" class="form-control">
+                                                    <input type="number" class="form-control" name="managerPhone" value="">
                                                 </div>
                                                 <div class="col-xs-2">
                                                     <label for="" class="name">Chọn nhân viên phụ trách</label>
                                                     <select name="" id="">
                                                         <option value=""> --Chọn nhân viên-- </option>
-                                                        <option value="">Nhân viên A </option>
-                                                        <option value=""> Nhân viên B</option>
+                                                        <option value="1">Nhân viên A </option>
+                                                        <option value="2"> Nhân viên B</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -154,13 +160,13 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-6">
                                                     <label for="" class="checkbox-inline">
-                                                        <input type="checkbox"> Nội thất
+                                                        <input name="typeCode" type="checkbox" value="noi-that"> Nội thất
                                                     </label>
                                                     <label for="" class="checkbox-inline">
-                                                        <input type="checkbox"> Nguyên căn
+                                                        <input name="typeCode" type="checkbox" value="nguyen-can"> Nguyên căn
                                                     </label>
                                                     <label for="" class="checkbox-inline">
-                                                        <input type="checkbox"> Tầng trệt
+                                                        <input name="typeCode" type="checkbox" value="tang-tret"> Tầng trệt
                                                     </label>
                                                 </div>
                                             </div>
@@ -169,13 +175,16 @@
                                         <div class="form-group">
                                             <div class="col-xs-12">
                                                 <div class="col-xs-6">
-                                                    <button type="button" class="btn btn-danger" fdprocessedid="ibanxr" id="btnSearchBuilding ">
+                                                    <button type="button" class="btn btn-xs btn-danger" id="btnSearchBuilding">
                                                         <i class="ace-icon fa fa-search nav-search-icon"></i>Tìm kiếm
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
+                                    </form:form>
+
                                 </div>
                             </div>
 
@@ -217,7 +226,7 @@
                         <tr>
                             <th class="center">
                                 <label class="pos-rel">
-                                    <input type="checkbox" class="ace">
+                                    <input type="checkbox" name="checkList" value="" class="ace">
                                     <span class="lbl"></span>
                                 </label>
                             </th>
@@ -237,24 +246,23 @@
                         </thead>
 
                         <tbody>
-                        <tr>
+                        <c:forEach var="item" items="${buildingList}">
+                            <tr>
                             <td class="center">
                                 <label class="pos-rel">
-                                    <input type="checkbox" class="ace">
+                                    <input type="checkbox" class="ace" name="checkList" value="${item.id}">
                                     <span class="lbl"></span>
                                 </label>
                             </td>
 
-                            <td>
-                                ACM Building
-                            </td>
-                            <td>59 Phan Xích Long, Phường 2, Quận 1</td>
-                            <td >2</td>
-                            <td>Anh Nam - Chị Linh</td>
-                            <td>0934567126</td>
-                            <td>300</td>
-                            <td>200</td>
-                            <td>250</td>
+                            <td>${item.name}</td>
+                            <td>${item.address}</td>
+                            <td >${item.numberOfBasement}</td>
+                            <td>${item.managerName}</td>
+                            <td>${item.managerPhone}</td>
+                            <td>${item.floorArea}</td>
+                            <td>${item.rentArea}</td>
+                            <td>${item.id}</td>
 
                             <td class="hidden-480">
                                 <span class="label label-sm label-warning"></span>
@@ -262,11 +270,11 @@
 
                             <td>
                                 <div class="hidden-sm hidden-xs btn-group">
-                                    <button class="btn btn-xs btn-success" title="Giao tòa nhà" onclick="assignmentBuilding(1)">
+                                    <button class="btn btn-xs btn-success" title="Giao tòa nhà" onclick="assignmentBuilding(${item.id})">
                                         <i class="ace-icon fa fa-check bigger-120"></i>
                                     </button>
 
-                                    <a class="btn btn-xs btn-info" title="sửa tòa nhà" href="/admin/building-edit">
+                                    <a class="btn btn-xs btn-info" title="sửa tòa nhà" href="/admin/building-edit-${item.id}">
                                         <i class="ace-icon fa fa-pencil bigger-120"></i>
                                     </a>
 
@@ -312,81 +320,84 @@
                             </td>
                         </tr>
 
-                        <tr>
-                            <td class="center">
-                                <label class="pos-rel">
-                                    <input type="checkbox" class="ace">
-                                    <span class="lbl"></span>
-                                </label>
-                            </td>
 
-                            <td>
-                                Nam Giao Building
-                            </td>
-                            <td></td>
-                            <td ></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        </c:forEach>
 
-                            <td class="hidden-480">
+<%--                        <tr>--%>
+<%--                            <td class="center">--%>
+<%--                                <label class="pos-rel">--%>
+<%--                                    <input type="checkbox" class="ace">--%>
+<%--                                    <span class="lbl"></span>--%>
+<%--                                </label>--%>
+<%--                            </td>--%>
 
-                            </td>
+<%--                            <td>--%>
+<%--                                Nam Giao Building--%>
+<%--                            </td>--%>
+<%--                            <td></td>--%>
+<%--                            <td ></td>--%>
+<%--                            <td></td>--%>
+<%--                            <td></td>--%>
+<%--                            <td></td>--%>
+<%--                            <td></td>--%>
+<%--                            <td></td>--%>
 
-                            <td>
-                                <div class="hidden-sm hidden-xs btn-group">
-                                    <button class="btn btn-xs btn-success">
-                                        <i class="ace-icon fa fa-check bigger-120"></i>
-                                    </button>
+<%--                            <td class="hidden-480">--%>
 
-                                    <button class="btn btn-xs btn-info">
-                                        <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                    </button>
+<%--                            </td>--%>
 
-                                    <button class="btn btn-xs btn-danger">
-                                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                    </button>
+<%--                            <td>--%>
+<%--                                <div class="hidden-sm hidden-xs btn-group">--%>
+<%--                                    <button class="btn btn-xs btn-success">--%>
+<%--                                        <i class="ace-icon fa fa-check bigger-120"></i>--%>
+<%--                                    </button>--%>
+
+<%--                                    <button class="btn btn-xs btn-info">--%>
+<%--                                        <i class="ace-icon fa fa-pencil bigger-120"></i>--%>
+<%--                                    </button>--%>
+
+<%--                                    <button class="btn btn-xs btn-danger">--%>
+<%--                                        <i class="ace-icon fa fa-trash-o bigger-120"></i>--%>
+<%--                                    </button>--%>
 
 
-                                </div>
+<%--                                </div>--%>
 
-                                <div class="hidden-md hidden-lg">
-                                    <div class="inline pos-rel">
-                                        <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
-                                            <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
-                                        </button>
+<%--                                <div class="hidden-md hidden-lg">--%>
+<%--                                    <div class="inline pos-rel">--%>
+<%--                                        <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">--%>
+<%--                                            <i class="ace-icon fa fa-cog icon-only bigger-110"></i>--%>
+<%--                                        </button>--%>
 
-                                        <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                                            <li>
-                                                <a href="#" class="tooltip-info" data-rel="tooltip" title="" data-original-title="View">
-																			<span class="blue">
-																				<i class="ace-icon fa fa-search-plus bigger-120"></i>
-																			</span>
-                                                </a>
-                                            </li>
+<%--                                        <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">--%>
+<%--                                            <li>--%>
+<%--                                                <a href="#" class="tooltip-info" data-rel="tooltip" title="" data-original-title="View">--%>
+<%--																			<span class="blue">--%>
+<%--																				<i class="ace-icon fa fa-search-plus bigger-120"></i>--%>
+<%--																			</span>--%>
+<%--                                                </a>--%>
+<%--                                            </li>--%>
 
-                                            <li>
-                                                <a href="#" class="tooltip-success" data-rel="tooltip" title="" data-original-title="Edit">
-																			<span class="green">
-																				<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-																			</span>
-                                                </a>
-                                            </li>
+<%--                                            <li>--%>
+<%--                                                <a href="#" class="tooltip-success" data-rel="tooltip" title="" data-original-title="Edit">--%>
+<%--																			<span class="green">--%>
+<%--																				<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>--%>
+<%--																			</span>--%>
+<%--                                                </a>--%>
+<%--                                            </li>--%>
 
-                                            <li>
-                                                <a href="#" class="tooltip-error" data-rel="tooltip" title="" data-original-title="Delete">
-																			<span class="red">
-																				<i class="ace-icon fa fa-trash-o bigger-120"></i>
-																			</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+<%--                                            <li>--%>
+<%--                                                <a href="#" class="tooltip-error" data-rel="tooltip" title="" data-original-title="Delete">--%>
+<%--																			<span class="red">--%>
+<%--																				<i class="ace-icon fa fa-trash-o bigger-120"></i>--%>
+<%--																			</span>--%>
+<%--                                                </a>--%>
+<%--                                            </li>--%>
+<%--                                        </ul>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
+<%--                            </td>--%>
+<%--                        </tr>--%>
 
                         </tbody>
                     </table>
@@ -397,7 +408,7 @@
     </div>
 </div><!-- /.main-content -->
 
-<div class="modal fade" id="assignmentBuildingModel" role="dialog" style="font-family: 'Times New Roman', Times, serif;">
+<div class="modal fade" id="assignmentBuildingModal" role="dialog" style="font-family: 'Times New Roman', Times, serif;">
     <div class="modal-dialog">
         <!-- Modal content -->
         <div class="modal-content">
@@ -441,6 +452,29 @@
 
     </div>
 </div>
+<script>
+    function assignmentBuilding(buildingid){
+        $('#assignmentBuildingModal').modal();
+        $('buildingId').val();
 
+    }
+
+    $('#btnassignmentBuilding').click(function(e){
+        e.preventDefault();
+        var data = {};
+        data['buildingId'] = $('#buildingId').val();
+        var staffs = $('#staffList').find('tbody input[type = checkbox]:checked').map(function(){
+            return $(this.val());
+        }).get();
+        data['staffs'] = staffs;
+    });
+
+    $('#btnSearchBuilding').click(function(e){
+        e.preventDefault();
+        $('#listForm').submit();
+    });
+
+</script>
 </body>
+
 </html>
