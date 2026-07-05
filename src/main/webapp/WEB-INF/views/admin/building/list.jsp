@@ -463,6 +463,22 @@
         $('buildingId').val();
 
     }
+    function loadStaff(buildingId){
+        $.ajax({
+            type:"GET",
+            // url: "/admin/building",
+            url: "${buildingAPI}/"+ buildingId + "/staffs",
+            data : JSON.stringify(data),
+            contentType: "application/json",
+            dataType:"JSON",
+            success: function(respon) {
+                $("#h11").html(respon);
+            },
+            error: function(respon){
+                console.log(respon);
+            }
+        })
+    }
 
     $('#btnassignmentBuilding').click(function(e){
         e.preventDefault();
