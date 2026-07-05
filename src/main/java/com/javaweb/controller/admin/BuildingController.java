@@ -2,14 +2,17 @@ package com.javaweb.controller.admin;
 
 
 
+import com.javaweb.enums.BuildingType;
+import com.javaweb.enums.DistrictCode;
 import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.model.response.BuildingSearchResponse;
+import com.javaweb.service.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +21,8 @@ import java.util.List;
 
 @Controller(value="buildingControllerOfAdmin")
 public class BuildingController {
+    @Autowired
+    private IUserService userService;
     @GetMapping(value = "/admin/building-list")
     public ModelAndView buildingList(@ModelAttribute BuildingSearchRequest buildingSearchRequest,
             HttpServletRequest request) {
@@ -48,6 +53,9 @@ public class BuildingController {
         item2.setRentArea("200,300");
         responseList.add(item2);
         mav.addObject("buildingList", responseList);
+        mav.addObject("listStaffs", userService.getStaffs());
+        mav.addObject("districts", DistrictCode.type());
+        mav.addObject("typeCodes", BuildingType.type());
         return mav;
     }
 
@@ -55,6 +63,8 @@ public class BuildingController {
     public ModelAndView buidlingEdit(@ModelAttribute("buildingEdit") BuildingDTO buildingDTO, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("admin/building/edit");
 //        mav.addObject("building", buildingDTO);
+        mav.addObject("districts", DistrictCode.type());
+        mav.addObject("typeCodes", BuildingType.type());
         return mav;
     }
 
@@ -66,6 +76,8 @@ public class BuildingController {
         buildingDTO.setId(id);
         buildingDTO.setName("Vô danh");
         mav.addObject("buildingEdit", buildingDTO);
+        mav.addObject("districts", DistrictCode.type());
+        mav.addObject("typeCodes", BuildingType.type());
         return mav;
     }
 }

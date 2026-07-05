@@ -41,14 +41,15 @@
                 </div>
 
                 <div class="row" style="font-family: 'Times New Roman', Times, serif;">
-                    <div class="col-xs-12">
+                    <form:form modelAttribute="buildingEdit" id="listForm" method="get" action="/admin/building-edit">
+                         <div class="col-xs-12">
                         <form class="form-horizontal" role="form" id="form-edit">
                             <div class="form-group">
                                 <label for="" class="col-xs-3">
                                     Tên tòa nhà
                                 </label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="name" id="name">
+                                    <form:input class="form-control" path="name" />
                                 </div>
                             </div>
 
@@ -57,12 +58,12 @@
                                     Quận
                                 </label>
                                 <div class="col-xs-2">
-                                    <select id="districtid" class="form-control " name="districtid" id="districtid">
-                                        <option value="">--Chọn quận--</option>
-                                        <option value="">Quận 1</option>
-                                        <option value="">Quận 2</option>
-                                        <option value="">Quận 10</option>
-                                    </select>
+                                    <form:select path="district" class="form-control">
+                                        <form:option value=""> --Chọn quận-- </form:option>
+                                        <form:option value="">Quận 1</form:option>
+                                        <form:option value="">Quận 2</form:option>
+                                        <form:option value="">Quận 10</form:option>
+                                    </form:select>
                                 </div>
                             </div>
 
@@ -162,7 +163,7 @@
                                     Phí dịch vụ
                                 </label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="name" id="name">
+                                    <input class="form-control" type="text" name="serviceFee" id="serviceFee">
                                 </div>
                             </div>
 
@@ -306,14 +307,22 @@
                             <div class="form-group">
                                 <label for="" class="col-xs-3"></label>
                                 <div class="col-xs-9">
-
-                                    <button type="button" class="btn btn-primary" id="btnAddBuilding">Thêm tòa nhà</button>
-                                    <button type="button" class="btn btn-primary">Hủy thao tác</button>
+                                    <c:if test="${not empty buildingEdit.id}">
+                                        <button type="button" class="btn btn-primary" id="btnAddBuilding">Cập nhật tòa nhà</button>
+                                        <button type="button" class="btn btn-primary">Hủy thao tác</button>
+                                    </c:if>
+                                    <c:if test="${ empty buildingEdit.id}">
+                                        <button type="button" class="btn btn-primary" id="btnAddBuilding">Thêm tòa nhà</button>
+                                        <button type="button" class="btn btn-primary">Hủy thao tác</button>
+                                        </c:if>
                                 </div>
                             </div>
 
                         </form>
                     </div>
+
+                    </form:form>
+
 
                 </div>
             </div>

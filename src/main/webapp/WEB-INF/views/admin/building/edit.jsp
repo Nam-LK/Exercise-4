@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglib.jsp" %>
+<c:url var="buildingAPI" value="/admin/building"/>
 <html>
 <head>
     <title>Thêm/sửa tòa nhà</title>
@@ -54,15 +55,11 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="" class="col-xs-3">
-                                    Quận
-                                </label>
+                                <label for="" class="col-xs-3">Quận</label>
                                 <div class="col-xs-2">
-                                    <form:select path="district" class="form-control">
-                                        <form:option value=""> --Chọn quận-- </form:option>
-                                        <form:option value="">Quận 1</form:option>
-                                        <form:option value="">Quận 2</form:option>
-                                        <form:option value="">Quận 10</form:option>
+                                    <form:select class="form-control" path="district">
+                                        <form:option value=""> --- Chon Quận --- </form:option>
+                                        <form:options items="${districts}" />
                                     </form:select>
                                 </div>
                             </div>
@@ -72,7 +69,7 @@
                                     Phường
                                 </label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="ward" id="ward">
+                                    <input class="form-control" type="text" name="ward" id="ward" value="">
                                 </div>
                             </div>
 
@@ -81,7 +78,7 @@
                                     Đường
                                 </label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="street" id="street">
+                                    <input class="form-control" type="text" name="street" id="street" value="">
                                 </div>
                             </div>
 
@@ -90,7 +87,7 @@
                                     Kết cấu
                                 </label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="structure" id="structure">
+                                    <input class="form-control" type="text" name="structure" id="structure" value="">
                                 </div>
                             </div>
 
@@ -99,7 +96,7 @@
                                     Số tầng hầm
                                 </label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="numberofbasement" id="numberofbasement">
+                                    <input class="form-control" type="text" name="numberofbasement" id="numberofbasement" value="">
                                 </div>
                             </div>
 
@@ -109,7 +106,7 @@
                                     Diện tích sàn
                                 </label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="floorarea" id="floorarea">
+                                    <input class="form-control" type="text" name="floorarea" id="floorarea" value="">
                                 </div>
                             </div>
 
@@ -118,7 +115,7 @@
                                     Hướng
                                 </label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="direction" id="direction">
+                                    <input class="form-control" type="text" name="direction" id="direction" value="">
                                 </div>
                             </div>
 
@@ -127,7 +124,7 @@
                                     Hạng
                                 </label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="level" id="level">
+                                    <input class="form-control" type="text" name="level" id="level" value="">
                                 </div>
                             </div>
 
@@ -136,7 +133,7 @@
                                     Diện tích thuê
                                 </label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="rentarea" id="rentarea">
+                                    <input class="form-control" type="text" name="rentarea" id="rentarea" value="">
                                 </div>
                             </div>
 
@@ -145,7 +142,7 @@
                                     Giá thuê
                                 </label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="rentprice" id="rentprice">
+                                    <input class="form-control" type="text" name="rentprice" id="rentprice" value="">
                                 </div>
                             </div>
 
@@ -154,7 +151,7 @@
                                     Mô tả giá
                                 </label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="rentpricedescription" id="rentpricedescription">
+                                    <input class="form-control" type="text" name="rentpricedescription" id="rentpricedescription" value="">
                                 </div>
                             </div>
 
@@ -163,7 +160,7 @@
                                     Phí dịch vụ
                                 </label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="serviceFee" id="serviceFee">
+                                    <input class="form-control" type="text" name="serviceFee" id="serviceFee" value="">
                                 </div>
                             </div>
 
@@ -172,7 +169,7 @@
                                     Phí ô tô
                                 </label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="name" id="name">
+                                    <input class="form-control" type="text" name="" id="otoFee" value="">
                                 </div>
                             </div>
 
@@ -181,7 +178,7 @@
                                     Phí mô tô
                                 </label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="name" id="name">
+                                    <input class="form-control" type="text" name="name" id="motoFee" value="">
                                 </div>
                             </div>
 
@@ -190,7 +187,7 @@
                                     Phí ngoài giờ
                                 </label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="name" id="name">
+                                    <input class="form-control" type="text" name="name" id="outFee" value="">
                                 </div>
                             </div>
 
@@ -268,21 +265,20 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="" class="col-xs-3">
-                                    Loại tòa nhà
-                                </label>
+                                <label for="" class="col-xs-3">Loại tòa nhà</label>
                                 <div class="col-xs-9">
-                                    <label for="" class="checkbox-inline">
-                                        <input type="checkbox" name="typecode" id="" value="noi-that">Nội thất
-                                    </label>
+<%--                                    <label for="" class="checkbox-inline">--%>
+<%--                                        <input type="checkbox" name="typecode" id="" value="noi-that">Nội thất--%>
+<%--                                    </label>--%>
 
-                                    <label for="" class="checkbox-inline">
-                                        <input type="checkbox" name="typecode" id="" value="nguyen-can">Nguyên căn
-                                    </label>
+<%--                                    <label for="" class="checkbox-inline">--%>
+<%--                                        <input type="checkbox" name="typecode" id="" value="nguyen-can">Nguyên căn--%>
+<%--                                    </label>--%>
 
-                                    <label for="" class="checkbox-inline">
-                                        <input type="checkbox" name="typecode" id="" value="tang-tret">Tầng trệt
-                                    </label>
+<%--                                    <label for="" class="checkbox-inline">--%>
+<%--                                        <input type="checkbox" name="typecode" id="" value="tang-tret">Tầng trệt--%>
+<%--                                    </label>--%>
+                                    <form:checkboxes items="${typeCodes}" path="typeCode" />
                                 </div>
                             </div>
 
@@ -308,15 +304,16 @@
                                 <label for="" class="col-xs-3"></label>
                                 <div class="col-xs-9">
                                     <c:if test="${not empty buildingEdit.id}">
-                                        <button type="button" class="btn btn-primary" id="btnAddBuilding">Cập nhật tòa nhà</button>
-                                        <button type="button" class="btn btn-primary">Hủy thao tác</button>
+                                        <button type="button" class="btn btn-primary" id="btnAddOrUpdateBuilding">Cập nhật tòa nhà</button>
+                                        <button type="button" class="btn btn-primary" id="btnCancel">Hủy thao tác</button>
                                     </c:if>
                                     <c:if test="${ empty buildingEdit.id}">
-                                        <button type="button" class="btn btn-primary" id="btnAddBuilding">Thêm tòa nhà</button>
-                                        <button type="button" class="btn btn-primary">Hủy thao tác</button>
+                                        <button type="button" class="btn btn-primary" id="btnAddOrUpdateBuilding">Thêm tòa nhà</button>
+                                        <button type="button" class="btn btn-primary" id="btnCancel">Hủy thao tác</button>
                                         </c:if>
                                 </div>
                             </div>
+                            <form:hidden path="id" id="buildingId"/>
 
                         </form>
                     </div>
@@ -329,7 +326,46 @@
         </div><!-- /.page-content -->
     </div>
 </div><!-- /.main-content -->
+<script>
+    $('#btnAddOrUpdateBuilding').click(function(){
+        var data = {};
+        var typeCode =[];
+        var formData = $('#listForm').serializeArray();
+        $.each(formData, function(i,v){
+            if(v.name != 'typeCode'){
+                data[""+ v.name + ""] = v.value;
+            }else{
+                typeCode.push(v.value);
+            }
 
+        });
+        data['typeCode' ] = typeCode;
+        if (typeCode != ' '){
+            addOrUpdateBuilding(data);
+        }else{
+            window.location.href= "<c:url value="/admin/building-edit?typeCode=require"/>";
+        }
+    });
+    function addOrUpdateBuilding(data){
+        $.ajax({
+            type:"POST",
+            // url: "/admin/building",
+            url: "${buildingAPI}",
+            data : JSON.stringify(data),
+            contentType: "application/json",
+            dataType:"JSON",
+            success: function(respon) {
+                $("#h11").html(respon);
+            },
+            error: function(respon){
+                console.log(respon);
+            }
+        })
+    }
+    $('#btnCancel').click(function(e){
+        window.location.href = "/admin/building-list";
+    });
+</script>
 
 </body>
 </html>
