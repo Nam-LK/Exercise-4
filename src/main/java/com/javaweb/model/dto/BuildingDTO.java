@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 public class BuildingDTO extends AbstractDTO{
-    private Long id;
     private String name;
     private String street;
     private String ward;
@@ -13,7 +12,7 @@ public class BuildingDTO extends AbstractDTO{
     private Long numberOfBasement;
     private Long floorArea;
     private String level;
-    private List<String> typeCode;
+    private String typeCode;
     private String overtimeFee;
     private String electricityFee;
     private String deposit;
@@ -98,13 +97,13 @@ public class BuildingDTO extends AbstractDTO{
         this.imageName = imageName;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;
@@ -138,11 +137,11 @@ public class BuildingDTO extends AbstractDTO{
         this.numberOfBasement = numberOfBasement;
     }
 
-    public List<String> getTypeCode() {
+    public String getTypeCode() {
         return typeCode;
     }
 
-    public void setTypeCode(List<String> typeCode) {
+    public void setTypeCode(String typeCode) {
         this.typeCode = typeCode;
     }
 

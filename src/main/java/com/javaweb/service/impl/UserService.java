@@ -2,11 +2,17 @@ package com.javaweb.service.impl;
 
 import com.javaweb.constant.SystemConstant;
 import com.javaweb.converter.UserConverter;
-import com.javaweb.model.dto.PasswordDTO;
-import com.javaweb.model.dto.UserDTO;
+import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.RoleEntity;
 import com.javaweb.entity.UserEntity;
 import com.javaweb.exception.MyException;
+import com.javaweb.model.dto.AssignBuildingDTO;
+import com.javaweb.model.dto.PasswordDTO;
+import com.javaweb.model.dto.UserDTO;
+import com.javaweb.model.response.ResponseAssignDTO;
+import com.javaweb.model.response.StaffResponseDTO;
+//import com.javaweb.repository.AssignBuildingRepository;
+import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.RoleRepository;
 import com.javaweb.repository.UserRepository;
 import com.javaweb.service.IUserService;
@@ -19,26 +25,35 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
 public class UserService implements IUserService {
 
-    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
     private RoleRepository roleRepository;
 
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
     private UserConverter userConverter;
+    private BuildingRepository buildingRepository;
+//    private AssignBuildingRepository assignBuildingRepository;
 
-
+    @Autowired
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder,
+                       UserConverter userConverter, BuildingRepository buildingRepository){
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.userConverter = userConverter;
+        this.buildingRepository = buildingRepository;
+//        this.assignBuildingRepository = assignBuildingRepository;
+    }
 
     @Override
     public UserDTO findOneByUserNameAndStatus(String name, int status) {
@@ -82,6 +97,78 @@ public class UserService implements IUserService {
         return userRepository.countTotalItem();
     }
 
+    @Override
+    public Map<Long, String> getListStaff() {
+        Map<Long, String> map = new HashMap<>();
+        List<UserEntity> list = userRepository.findByStatusAndRoles_Code(1, "STAFF");
+        for (UserEntity x : list) {
+            map.put(x.getId(), x.getFullName());
+        }
+        return map;
+    }
+
+    @Override
+    public StaffResponseDTO listStaff(Long buildingId) {
+        BuildingEntity buildingEntity = buildingRepository.findById(buildingId).get();
+        List<UserEntity> userEntityList = userRepository.findByStatusAndRoles_Code(1, "STAFF");
+//        List<AssignBuildingEntity> assignBuildingEntities = buildingEntity.getAssignBuildingEntities();
+//        List<UserEntity> staffAssignedBuilding = new ArrayList<>();
+//        List<ResponseAssignDTO> list = new ArrayList<>();
+//        assignBuildingEntities.stream().forEach(it -> staffAssignedBuilding.add(it.getUserEntity()));
+//        for (UserEntity x : userEntityList) {
+//            ResponseAssignDTO staffDTO = new ResponseAssignDTO();
+//            if (staffAssignedBuilding.contains(x)) {
+//                staffDTO.setChecked("checked");
+//            } else {
+//                staffDTO.setChecked("");
+//            }
+//            staffDTO.setStaffId(x.getId());
+//            staffDTO.setFullName(x.getFullName());
+//            list.add(staffDTO);
+//        }
+//        StaffResponseDTO result = new StaffResponseDTO();
+//        result.setData(list);
+//        result.setMessage("success");
+//        result.setDetail("");
+//        return result;
+        List<UserEntity> staffAssignBuilding = buildingEntity.getUserEntities();
+        List<ResponseAssignDTO> list = new ArrayList<>();
+        for(UserEntity x : userEntityList){
+            ResponseAssignDTO staffDTO = new ResponseAssignDTO();
+            if(staffAssignBuilding.contains(x)){
+                staffDTO.setChecked("checked");
+            }else{
+                staffDTO.setChecked("");
+            }
+            staffDTO.setStaffId(x.getId());
+            staffDTO.setFullName(x.getFullName());
+            list.add(staffDTO);
+        }
+        StaffResponseDTO result = new StaffResponseDTO();
+        result.setData(list);
+        result.setMessage("success");
+        result.setDetail("");
+        return result;
+    }
+
+    @Override
+    public void updateAssignBuilding(AssignBuildingDTO assignBuildingDTO) {
+        BuildingEntity buildingEntity = buildingRepository.findById(assignBuildingDTO.getBuildingId()).get();
+        List<UserEntity> userEntities = userRepository.findByIdIn(assignBuildingDTO.getStaffs());
+        buildingEntity.setUserEntities(userEntities);
+//        List<UserEntity> staffAssignedBuilding = userRepository.findByIdIn(assignBuildingDTO.getStaffs());
+//        List<AssignBuildingEntity> allAssignEntity = assignBuildingRepository.findAll();
+//        allAssignEntity.stream()
+//                .filter(it -> it.getBuildingEntity().equals(buildingEntity))
+//                .forEach(it->assignBuildingRepository.deleteById(it.getId()));
+//        for (UserEntity item : staffAssignedBuilding) {
+//            AssignBuildingEntity assignBuilding = new AssignBuildingEntity();
+//            assignBuilding.setBuildingEntity(buildingEntity);
+//            assignBuilding.setUserEntity(item);
+//            assignBuildingRepository.save(assignBuilding);
+//        }
+        buildingRepository.save(buildingEntity);
+    }
 
 
     @Override

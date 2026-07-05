@@ -1,6 +1,6 @@
 package com.javaweb.model.response;
 
-public class StaffResponseDTO {
+public class TransactionResponseDTO {
     private Object data;
     private String message;
     private String detail;

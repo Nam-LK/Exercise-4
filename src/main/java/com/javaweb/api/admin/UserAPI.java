@@ -2,6 +2,7 @@ package com.javaweb.api.admin;
 
 import com.javaweb.constant.SystemConstant;
 import com.javaweb.exception.MyException;
+import com.javaweb.model.dto.AssignBuildingDTO;
 import com.javaweb.model.dto.PasswordDTO;
 import com.javaweb.model.dto.UserDTO;
 import com.javaweb.service.IUserService;
@@ -53,5 +54,9 @@ public class UserAPI {
             userService.delete(idList);
         }
         return ResponseEntity.noContent().build();
+    }
+    @PostMapping ("/assignment")
+    public void updateAssignBuilding(@RequestBody AssignBuildingDTO assignBuildingDTO){
+        userService.updateAssignBuilding(assignBuildingDTO);
     }
 }

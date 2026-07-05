@@ -2,26 +2,28 @@ package com.javaweb.model.request;
 
 import com.javaweb.model.dto.AbstractDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BuildingSearchRequest extends AbstractDTO {
+    private Long id;
     private String name;
-    private Long floorArea;
+    private Integer floorArea;
     private String district;
     private String ward;
     private String street;
-    private Long numberOfBasement;
+    private Integer numberOfBasement;
     private String direction;
-    private Long level;
-    private Long areaFrom;
-    private Long areaTo;
-    private Long rentPriceFrom;
-    private Long rentPriceTo;
+    private String level;
+    private Integer rentAreaFrom;
+    private Integer rentAreaTo;
+    private List<String> typeCode = new ArrayList<>();
+
+    private Long staffId;
+    private Integer rentPriceFrom;
+    private Integer rentPriceTo;
     private String managerName;
     private String managerPhone;
-    private Long staffId;
-    private List<String> typeCode;
-
 
     public String getName() {
         return name;
@@ -31,36 +33,20 @@ public class BuildingSearchRequest extends AbstractDTO {
         this.name = name;
     }
 
-    public Long getFloorArea() {
+    public Integer getFloorArea() {
         return floorArea;
     }
 
-    public void setFloorArea(Long floorArea) {
+    public void setFloorArea(Integer floorArea) {
         this.floorArea = floorArea;
     }
 
-    public Long getNumberOfBasement() {
-        return numberOfBasement;
+    public String getDistrict() {
+        return district;
     }
 
-    public void setNumberOfBasement(Long numberOfBasement) {
-        this.numberOfBasement = numberOfBasement;
-    }
-
-    public List<String> getTypeCode() {
-        return typeCode;
-    }
-
-    public void setTypeCode(List<String> typeCode) {
-        this.typeCode = typeCode;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
     public String getWard() {
@@ -71,12 +57,60 @@ public class BuildingSearchRequest extends AbstractDTO {
         this.ward = ward;
     }
 
-    public String getDistrict() {
-        return district;
+    public String getStreet() {
+        return street;
     }
 
-    public void setDistrict(String district) {
-        this.district = district;
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public Integer getNumberOfBasement() {
+        return numberOfBasement;
+    }
+
+    public void setNumberOfBasement(Integer numberOfBasement) {
+        this.numberOfBasement = numberOfBasement;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public Integer getRentAreaFrom() {
+        return rentAreaFrom;
+    }
+
+    public void setRentAreaFrom(Integer rentAreaFrom) {
+        this.rentAreaFrom = rentAreaFrom;
+    }
+
+    public Integer getRentAreaTo() {
+        return rentAreaTo;
+    }
+
+    public void setRentAreaTo(Integer rentAreaTo) {
+        this.rentAreaTo = rentAreaTo;
+    }
+
+    public List<String> getTypeCode() {
+        return typeCode;
+    }
+
+    public void setTypeCode(List<String> typeCode) {
+        this.typeCode = typeCode;
     }
 
     public String getManagerName() {
@@ -95,36 +129,12 @@ public class BuildingSearchRequest extends AbstractDTO {
         this.managerPhone = managerPhone;
     }
 
-    public Long getRentPriceFrom() {
-        return rentPriceFrom;
+    public Long getId() {
+        return id;
     }
 
-    public void setRentPriceFrom(Long rentPriceFrom) {
-        this.rentPriceFrom = rentPriceFrom;
-    }
-
-    public Long getRentPriceTo() {
-        return rentPriceTo;
-    }
-
-    public void setRentPriceTo(Long rentPriceTo) {
-        this.rentPriceTo = rentPriceTo;
-    }
-
-    public Long getAreaFrom() {
-        return areaFrom;
-    }
-
-    public void setAreaFrom(Long areaFrom) {
-        this.areaFrom = areaFrom;
-    }
-
-    public Long getAreaTo() {
-        return areaTo;
-    }
-
-    public void setAreaTo(Long areaTo) {
-        this.areaTo = areaTo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getStaffId() {
@@ -135,19 +145,19 @@ public class BuildingSearchRequest extends AbstractDTO {
         this.staffId = staffId;
     }
 
-    public String getDirection() {
-        return direction;
+    public Integer getRentPriceFrom() {
+        return rentPriceFrom;
     }
 
-    public void setDirection(String direction) {
-        this.direction = direction;
+    public void setRentPriceFrom(Integer rentPriceFrom) {
+        this.rentPriceFrom = rentPriceFrom;
     }
 
-    public Long getLevel() {
-        return level;
+    public Integer getRentPriceTo() {
+        return rentPriceTo;
     }
 
-    public void setLevel(Long level) {
-        this.level = level;
+    public void setRentPriceTo(Integer rentPriceTo) {
+        this.rentPriceTo = rentPriceTo;
     }
 }

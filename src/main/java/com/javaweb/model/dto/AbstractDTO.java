@@ -1,5 +1,7 @@
 package com.javaweb.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +14,8 @@ public class AbstractDTO<T> implements Serializable {
     private Long id;
     private Date createdDate;
     private String createdBy;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS",timezone = "Asia/Ho_Chi_Minh")
     private Date modifiedDate;
     private String modifiedBy;
     private int maxPageItems = 2;

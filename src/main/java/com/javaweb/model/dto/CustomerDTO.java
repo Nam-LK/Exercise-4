@@ -1,13 +1,31 @@
 package com.javaweb.model.dto;
 
 public class CustomerDTO extends AbstractDTO{
-    private String name;
+    private String fullName;
     private String managementStaff;
-    private String customerPhone;
+    private String phone;
     private String email;
     private String demand;
-    private String status;
     private String companyName;
+    private Boolean isActive;
+
+    private String status;
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getCompanyName() {
         return companyName;
@@ -17,13 +35,6 @@ public class CustomerDTO extends AbstractDTO{
         this.companyName = companyName;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getManagementStaff() {
         return managementStaff;
@@ -33,12 +44,20 @@ public class CustomerDTO extends AbstractDTO{
         this.managementStaff = managementStaff;
     }
 
-    public String getCustomerPhone() {
-        return customerPhone;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setCustomerPhone(String customerPhone) {
-        this.customerPhone = customerPhone;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {
@@ -55,14 +74,6 @@ public class CustomerDTO extends AbstractDTO{
 
     public void setDemand(String demand) {
         this.demand = demand;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
 }
