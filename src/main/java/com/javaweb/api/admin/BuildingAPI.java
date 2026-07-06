@@ -28,6 +28,8 @@ public class BuildingAPI {
     @GetMapping("/{id}/staffs")
     public ResponseDTO loadAllStaffs(@PathVariable Long id){
         ResponseDTO result = buildingService.listStaffs(id);
+        return result;
+        
     }
 
 }

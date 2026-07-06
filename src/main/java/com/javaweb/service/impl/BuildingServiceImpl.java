@@ -9,6 +9,6 @@ public class BuildingServiceImpl implements BuildingService {
 
     @Override
     public ResponseDTO listStaffs(Long buildingId) {
-        Building
+        return null;
     }
 }
