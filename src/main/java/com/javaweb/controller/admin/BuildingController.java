@@ -1,7 +1,5 @@
 package com.javaweb.controller.admin;
 
-
-
 import com.javaweb.constant.SystemConstant;
 import com.javaweb.enums.DistrictCode;
 import com.javaweb.enums.TypeCode;

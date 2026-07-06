@@ -7,7 +7,6 @@ import java.util.Map;
 
 @Component
 public class MessageUtils {
-
 	public Map<String, String> getMessage(String message) {
 		Map<String, String> result = new HashMap<>();
 		if (message.equals("update_success")) {
