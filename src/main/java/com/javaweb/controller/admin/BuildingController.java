@@ -33,6 +33,7 @@ public class BuildingController {
         this.iBuildingService = iBuildingService;
         this.messageUtils = messageUtils;
     }
+
     @RequestMapping(value = "/admin/building-list",method = RequestMethod.GET)
     public ModelAndView buildingList(@ModelAttribute("buildingSearch") BuildingSearchRequest buildingSearchRequest, HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView("admin/building/list");
@@ -71,6 +72,8 @@ public class BuildingController {
         modelAndView.addObject("buildingEdit",buildingDTO);
         return  modelAndView;
     }
+
+
     private void initMessageResponse(ModelAndView mav, HttpServletRequest request) {
         String message = request.getParameter("message");
         if (message != null && StringUtils.isNotEmpty(message)) {
@@ -79,5 +82,4 @@ public class BuildingController {
             mav.addObject(SystemConstant.MESSAGE_RESPONSE, messageMap.get(SystemConstant.MESSAGE_RESPONSE));
         }
     }
-
 }
