@@ -507,10 +507,10 @@
             contentType: "application/json",
             dataType:"JSON",
             success: function(response) {
-
+                console.info("Giao thành công")
             },
             error: function(response){
-                console.info("Giao thành công");
+                console.info("Giao không thành công");
                 window.location.href = "<c:url value="/admin/admin/building-list?message=error"/> ";
             }
         })

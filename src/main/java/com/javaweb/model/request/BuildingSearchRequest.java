@@ -6,7 +6,9 @@ import java.util.List;
 
 public class BuildingSearchRequest extends AbstractDTO {
     private String name;
+
     private Long floorArea;
+
     private String district;
     private String ward;
     private String street;
