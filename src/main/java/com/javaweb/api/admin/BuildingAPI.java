@@ -1,5 +1,6 @@
 package com.javaweb.api.admin;
 
+import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.service.BuildingService;
@@ -14,6 +15,7 @@ public class BuildingAPI {
     @Autowired
     private BuildingService buildingService;
 
+
     @PostMapping("/amdin/building")
     public void addOrUpdateBuilding(@RequestBody BuildingDTO buildingDTO){
         //bên thêm mới tòa nhà có bao nhiêu field thì bên dto có đúng như vậy
@@ -26,10 +28,16 @@ public class BuildingAPI {
 
     }
     @GetMapping("/{id}/staffs")
-    public ResponseDTO loadAllStaffs(@PathVariable Long id){
+    public ResponseDTO loadAllStaffs(@PathVariable Long id){ //hàm lấy ra danh sách các nhân viên quản lý tòa nhà có buildingid = a nào đó
         ResponseDTO result = buildingService.listStaffs(id);
         return result;
         
+    }
+
+    @PostMapping("/assignment")
+    public void updateAssignment(@RequestBody AssignmentBuildingDTO assignmentBuildingDTO){
+
+
     }
 
 }
