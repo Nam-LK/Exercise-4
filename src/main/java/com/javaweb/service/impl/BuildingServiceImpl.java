@@ -11,12 +11,16 @@ import com.javaweb.model.response.StaffResponseDTO;
 import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.UserRepository;
 import com.javaweb.service.BuildingService;
+import com.javaweb.utils.StringUtils;
 import com.javaweb.utils.UploadFileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 
@@ -51,7 +55,7 @@ public class BuildingServiceImpl implements BuildingService {
     @Override
     public void deleteBuildings(Long[] ids) {
         rentAreaService.deleteByBuildings(ids);
-        assignmentBuildingService.deleteByBuildingIn(ids);
+        assignmentBuildingService.deleteByBuildingsIn(ids);
         for (Long id : ids) {
             buildingRepository.deleteById(id);
         }
@@ -60,12 +64,80 @@ public class BuildingServiceImpl implements BuildingService {
 
     @Override
     public BuildingDTO addOrUpdateBuilding(BuildingDTO buildingDTO) {
-        return null;
+        if(!checkAddBuilding(buildingDTO)) return null;
+        Long builaingId = buildingDTO.getId();
+        BuildingEntity buildingEntity = modelMapper.map(buildingDTO, BuildingEntity.class);
+        buildingEntity.setTypeCode(removeAccent(buildingDTO.getTypeCode()));
+        if (buildingId != null) { // update
+            BuildingEntity foundBuilding = buildingRepository.findById(buildingId)
+                    .orElseThrow(() -> new NotFoundException("Building not found!"));
+            buildingEntity.setImage(foundBuilding.getImage());
+        }
+            saveThumbnail(buildingDTO, buildingEntity);
+            buildingRepository.save(buildingEntity);//có id nó tự xem là update
+            buildingDTO.setId(buildingEntity.getId());
+            if(StringUtils.check(buildingDTO.getRentArea())) rentAreaService.addRentArea(buildingDTO);
+            return buildingDTO;
+    }
+
+    private void saveThumbnail(BuildingDTO buildingDTO, BuildingEntity buildingEntity) {
+//        String path = "/building/" + buildingDTO.getImageName();
+//        if (buildingDTO.getImageBase64() != null) {
+//            if (buildingEntity.getImage() != null) {
+//                if(!path.equals(buildingEntity.getImage())){
+//                    File file = new File("C://home/office" + buildingEntity.getImage());
+//                    file.delete();
+//                }
+//            }
+//            byte[]bytes = Base64.decodeBase64(buildingDTO.getImageBase64().getBytes());
+//            uploadFileUtils.writeOrUpdate(path, bytes);
+//            buildingEntity.setImage(path);
+
+        }
+    }
+
+    public static String removeAccent(List<String> typeCodes) {
+        String s = String.join("", typeCodes);
+        return s;
+    }
+
+    public static boolean checkAddBuilding(BuildingDTO buildingDTO) {
+        if(!StringUtils.check(buildingDTO.getName())) return false;
+        if(!StringUtils.check(buildingDTO.getDistrict())) return false;
+        if(!StringUtils.check(buildingDTO.getWard())) return false;
+        if(!StringUtils.check(buildingDTO.getStreet())) return false;
+        if(!StringUtils.check(buildingDTO.getRentArea())) return false;
+        if(!StringUtils.check(buildingDTO.getRentPriceDescription())) return false;
+
+        if(!NumberUtils.checkNumber(buildingDTO.getNumberOfBasement())) return false;
+        if(!NumberUtils.checkNumber(buildingDTO.getFloorArea())) return false;
+        if(!NumberUtils.checkNumber(buildingDTO.getRentPrice())) return false;
+
+        return true;
     }
 
     @Override
     public BuildingDTO findById(Long id) {
-        return null;
+        BuildingEntity buildingEntity = buildingRepository.findById(id).get();
+        BuildingDTO res = modelMapper.map(buildingEntity, BuildingDTO.class);
+
+        List<RentAreaEntity> rentAreaEntities = buildingEntity.getRentAreaEntities();
+        String rentArea = rentAreaEntities.stream().map(it->it.getValue().toString()).collect(Collectors.joining(",");
+        res.setImage(buildingEntity.getImage());
+
+        res.setRentArea(rentArea);
+        res.setTypeCode(toTypeCodeList(buildingEntity.getTypeCode()));
+
+        return res;
+    }
+
+    public List<String> toTypeCodeList(String typeCodes) {
+        String [] arr = typeCodes.split(",");
+        List<String> typeCodeList = new ArrayList<>();
+        for (String s : arr) {
+            typeCodeList.add(s);
+        }
+        return typeCodeList;
     }
 
     @Override

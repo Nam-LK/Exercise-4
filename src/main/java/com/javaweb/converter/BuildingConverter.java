@@ -28,7 +28,7 @@ public class BuildingConverter {
 
 		String districtName = "";
 		if(buildingEntity.getDistrict() != null && buildingEntity.getDistrict() != "") {
-			districtName. = districts.get(buildingEntity.getDistrict());
+			districtName = districts.get(buildingEntity.getDistrict());
 		}
 		if(districtName != null && districtName != "") {
 			res.setAddress(buildingEntity.getStreet() + "," + buildingEntity.getWard() + ", " + districtName);
