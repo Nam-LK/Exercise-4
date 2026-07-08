@@ -3,13 +3,16 @@ package com.javaweb.service.impl;
 import com.javaweb.builder.BuildingSearchBuilder;
 import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.UserEntity;
+import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.model.response.StaffResponseDTO;
+import com.javaweb.repository.AssignmentBuildingRepository;
 import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.UserRepository;
+import com.javaweb.service.AssignmentBuildingService;
 import com.javaweb.service.BuildingService;
 import com.javaweb.utils.StringUtils;
 import com.javaweb.utils.UploadFileUtils;
@@ -71,13 +74,22 @@ public class BuildingServiceImpl implements BuildingService {
         if (buildingId != null) { // update
             BuildingEntity foundBuilding = buildingRepository.findById(buildingId)
                     .orElseThrow(() -> new NotFoundException("Building not found!"));
+            buildingEntity.setUserEntities(foundBuilding.getUserEntities());
             buildingEntity.setImage(foundBuilding.getImage());
         }
             saveThumbnail(buildingDTO, buildingEntity);
             buildingRepository.save(buildingEntity);//có id nó tự xem là update
-            buildingDTO.setId(buildingEntity.getId());
-            if(StringUtils.check(buildingDTO.getRentArea())) rentAreaService.addRentArea(buildingDTO);
             return buildingDTO;
+    }
+
+    @Override
+    public AssignmentBuildingDTO addAssignmentBuildingEntity(AssignmentBuildingDTO assignmentBuildingDTO) {
+        BuildingEntity buildingEntity = buildingRepository.findById(assignmentBuildingDTO.getBuildingId()).get()
+        List<UserEntity> staffs = userRepository.findByIdIn(assignmentBuildingDTO.getStaffs());
+        buildingEntity.setUserEntities(staffs);
+        buildingRepository.save(buildingEntity);
+        return assignmentBuildingDTO;
+
     }
 
     private void saveThumbnail(BuildingDTO buildingDTO, BuildingEntity buildingEntity) {
@@ -92,8 +104,6 @@ public class BuildingServiceImpl implements BuildingService {
 //            byte[]bytes = Base64.decodeBase64(buildingDTO.getImageBase64().getBytes());
 //            uploadFileUtils.writeOrUpdate(path, bytes);
 //            buildingEntity.setImage(path);
-
-        }
     }
 
     public static String removeAccent(List<String> typeCodes) {
@@ -165,6 +175,10 @@ public class BuildingServiceImpl implements BuildingService {
 
     @Override
     public int countTotalItem(List<BuildingSearchResponse> list) {
-        return 0;
+        int res = 0;
+        for(BuildingSearchResponse buildingSearchResponse : list) {
+            res += buildingSearchResponse.buildingRepository.countTotalItem(buildingSearchResponse);
+        }
+        return res;
     }
 }

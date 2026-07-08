@@ -3,6 +3,7 @@ package com.javaweb.converter;
 import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.RentAreaEntity;
 import com.javaweb.enums.DistrictCode;
+import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.response.BuildingSearchResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import java.util.stream.Collectors;
 public class BuildingConverter {
 	@Autowired
 	private ModelMapper modelMapper;
+	private RentAreaConverter rentAreaConverter;
+
 	
 	public BuildingSearchResponse toBuildingSearchResponse(BuildingEntity buildingEntity) {
 		BuildingSearchResponse res = modelMapper.map(buildingEntity, BuildingSearchResponse.class);
@@ -34,5 +37,20 @@ public class BuildingConverter {
 			res.setAddress(buildingEntity.getStreet() + "," + buildingEntity.getWard() + ", " + districtName);
 		}
 		return res;
+	}
+
+	public BuildingDTO tobuildingDTO(BuildingEntity buildingEntity) {
+		return modelMapper.map(buildingEntity, BuildingDTO.class);
+	}
+
+	public BuildingEntity toBuildingEntity(BuildingDTO buildingDTO) {
+		BuildingEntity buildingEntity = modelMapper.map(buildingDTO, BuildingEntity.class);
+		buildingEntity.setTypeCode(removeAccent(buildingDTO.getTypeCode()));
+		buildingEntity.setRentAreaEntities(rentAreaConverter.toRentAreaEntityList(buildingDTO, buildingEntity));
+		return buildingEntity;
+	}
+
+	public static String removeAccent(List<String> typeCodes) {
+		return String. join(",", typeCodes);
 	}
 }
