@@ -9,13 +9,51 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebSecurity
+@EnableWebMvc
+//@EnableArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Bean
+    protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(request ->{
+                    request
+                            .requestMatchers("**").permitAll()
+                })
+                .formLogin(form -> form
+                        .loginPage("/Login")
+                        .usernameParameter("j_username")
+                        .passwordParameter("j_password")
+                        .permitALL()
+                        .LoginProcessingUrL("/j_spring_security_check")
+                        .successHandLer(myAuthenticationSuccessHandler())
+                        .successHandler(myAuthenticationSuccessHandler())
+                        .failureUrl("/Login?incorrectAccount")
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .deleteCookies("JSESSIONID")
+                )
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .accessDeniedPage( accessDeniedUr: "/access-denied") // Xác đinh trang loi khi truy cập bị từ chối\
+                            )
+                            .sessionManagement(sessionManagement -> sessionManagement
+                .maximumSessions(1)
+                .expiredUrl("/login?sessionTimeout")
+        );
+
+        return http.build();
+    }
+
 
     @Bean
     public UserDetailsService userDetailsService() {

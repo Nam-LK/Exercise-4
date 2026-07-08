@@ -46,7 +46,7 @@ public class BuildingAPI {
         
     }
 
-    @PostMapping("/assignment")
+    @PostMapping
     public void updateAssignment(@RequestBody AssignmentBuildingDTO assignmentBuildingDTO){
         assignmentBuildingService.addAssignmentBuildingEntity(assignmentBuildingDTO);
     }
