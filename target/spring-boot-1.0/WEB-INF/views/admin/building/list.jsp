@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglib.jsp" %>
 <c:url var = "buildingListURL" value="/admin/building-list" />
-<c:url var = "buildingAPI" value="/admin/building" />
+<c:url var="buildingAPI" value = " /api/building"/>
 
 <html>
 <head>
@@ -431,23 +431,19 @@
                     </thead>
 
                     <tbody>
-                    <tr>
-                        <td class="center">
-                            <input type="checkbox"  id="checkbox_1" value="1" >
-                        </td>
-                        <td>Nguyễn Văn A</td>
-                    </tr>
+<%--                    <tr>--%>
+<%--                        <td class="center">--%>
+<%--                            <input type="checkbox"  id="checkbox_1" value="1" >--%>
+<%--                        </td>--%>
+<%--                        <td>Nguyễn Văn A</td>--%>
+<%--                    </tr>--%>
 
-                    <tr>
-                        <td class="center">
-                            <input type="checkbox"  id="checkbox_2" value="2">
-                        </td>
-                        <td>Nguyễn Văn B</td>
-                    </tr>
+
+
 
                     </tbody>
                 </table>
-                <input type="hidden" id="buildingId" name="buildingId" value="1">
+                <input type="hidden" id="buildingId" name="buildingId" value="">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" id="btnassignmentBuilding">Giao tòa nhà</button>
@@ -460,7 +456,8 @@
 <script>
     function assignmentBuilding(buildingid){
         $('#assignmentBuildingModal').modal();
-        $('buildingId').val();
+        loadStaff(buildingid);
+        $('buildingId').val(buildingid); //đẩy id về cho hidden iput
 
     }
     function loadStaff(buildingId){
@@ -471,11 +468,20 @@
             data : JSON.stringify(data),
             contentType: "application/json",
             dataType:"JSON",
-            success: function(respon) {
-                $("#h11").html(respon);
+            success: function(response) {
+                var row = '';
+                $.each(response.data, function (index, item){
+                    row += '<tr>';
+                    row +='<td class="text-center"><input type="checkbox" value='+ item.staffId + 'id = "checkbox_' + item.staffId + ' class = "check-box-element" ' + item.checked + '/></td>';
+                    row += '<td class = "text-center"> ' + item.fullName + '</td>';
+                    row+='</tr>';
+                })
+                $('#staffList tbody').html(row);
+
             },
-            error: function(respon){
-                console.log(respon);
+            error: function(response){
+                console.log(response);
+                window.location.href = "<c:url value="/admin/admin/building-list?message=error"/> ";
             }
         })
     }
@@ -488,7 +494,27 @@
             return $(this.val());
         }).get();
         data['staffs'] = staffs;
+        if (data['staffs'] != ''){
+            assignment(data);
+        }
     });
+    function assignment(data){
+        $.ajax({
+            type:"POST",
+            // url: "/admin/building",
+            url: "${buildingAPI}/" + 'assignment',
+            data : JSON.stringify(data),
+            contentType: "application/json",
+            dataType:"JSON",
+            success: function(response) {
+
+            },
+            error: function(response){
+                console.info("Giao thành công");
+                window.location.href = "<c:url value="/admin/admin/building-list?message=error"/> ";
+            }
+        })
+    }
 
     $('#btnSearchBuilding').click(function(e){
         e.preventDefault();
