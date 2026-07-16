@@ -35,13 +35,15 @@ public class CustomerController {
     public ModelAndView customerList(@ModelAttribute("customerSearch")CustomerSearchRequest customerSearchRequest, HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView("admin/customer/list");
         modelAndView.addObject("staffs",iUserService.getListStaff());
+
+        //Phân trang và trả kết quả ra bảng dưới tìm kiếm
         DisplayTagUtils.of(request,customerSearchRequest);
         customerSearchRequest.setMaxPageItems(3);
-        if(SecurityUtils.getAuthorities().contains("ROLE_STAFF")){
+        if(SecurityUtils.getAuthorities().contains("ROLE_STAFF")){//nếu nhân viên chỉ thấy được khác hàng mà mình được giao
             Long staffId = SecurityUtils.getPrincipal().getId();
             customerSearchRequest.setStaffId(staffId);
             modelAndView.addObject("customers",iCustomerService.searchCustomers(customerSearchRequest));
-        }else{
+        }else{//ngược lại là quản lý sẽ thấy được toàn bộ khách hàng
             modelAndView.addObject("customers",iCustomerService.searchCustomers(customerSearchRequest));
         }
 //        customerSearchRequest.setLimit(3);
@@ -51,6 +53,7 @@ public class CustomerController {
         return modelAndView;
     }
 
+    //Thêm mới khách hàng
     @RequestMapping(value = "/admin/customer-edit",method = RequestMethod.GET)
     public ModelAndView addCustomer(@ModelAttribute("customerEdit")CustomerDTO customerDTO){
         ModelAndView modelAndView = new ModelAndView("/admin/customer/edit");
@@ -58,12 +61,20 @@ public class CustomerController {
         return modelAndView;
     }
 
+    //Chỉnh sửa khách hàng
     @GetMapping(value = "/admin/customer-edit-{id}")
     public ModelAndView updateCustomer(@PathVariable Long id){
         ModelAndView modelAndView = new ModelAndView("/admin/customer/edit");
         modelAndView.addObject("statusCode", StatusCode.getStatusCode());
         CustomerDTO customerDTO = iCustomerService.findById(id);
         modelAndView.addObject("customerEdit",customerDTO);
+        //Lấy ra tên của giao dịch
+        /*
+        CSKH
+        ....
+        DDX
+        ...
+         */
         modelAndView.addObject("transactionType", TransactionType.getTransactionType());
         modelAndView.addObject("CSKHList",transactionService.findByCodeAndCustomerId("CSKH",id));
         modelAndView.addObject("DDXList",transactionService.findByCodeAndCustomerId("DDX",id));

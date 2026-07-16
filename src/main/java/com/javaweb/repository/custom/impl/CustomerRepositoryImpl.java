@@ -70,10 +70,10 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
     }
 
     @Override
-    public int countTotalItems() {
+    public int countTotalItems() { //Phân trang
         StringBuilder sql = new StringBuilder("Select * from customer");
-         Query query = entityManager.createNativeQuery(sql.toString(), CustomerEntity.class);
-         List<CustomerEntity> list = query.getResultList();
+        Query query = entityManager.createNativeQuery(sql.toString(), CustomerEntity.class);
+        List<CustomerEntity> list = query.getResultList();
         return list.size();
     }
     @Override

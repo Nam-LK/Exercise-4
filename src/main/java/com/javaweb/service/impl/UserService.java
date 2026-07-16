@@ -108,9 +108,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public StaffResponseDTO listStaff(Long buildingId) {
+    public StaffResponseDTO listStaff(Long buildingId) { //nó hiện lên toàn booj nhân viên khi ấn giao tòa nhà cho đúng tòa đó nếu nv nào đc giao thì đánh dấu  bên fe
         BuildingEntity buildingEntity = buildingRepository.findById(buildingId).get();
-        List<UserEntity> userEntityList = userRepository.findByStatusAndRoles_Code(1, "STAFF");
+        List<UserEntity> userEntityList = userRepository.findByStatusAndRoles_Code(1, "STAFF");//Lẩy all nhân viên
 //        List<AssignBuildingEntity> assignBuildingEntities = buildingEntity.getAssignBuildingEntities();
 //        List<UserEntity> staffAssignedBuilding = new ArrayList<>();
 //        List<ResponseAssignDTO> list = new ArrayList<>();
@@ -131,7 +131,7 @@ public class UserService implements IUserService {
 //        result.setMessage("success");
 //        result.setDetail("");
 //        return result;
-        List<UserEntity> staffAssignBuilding = buildingEntity.getUserEntities();
+        List<UserEntity> staffAssignBuilding = buildingEntity.getUserEntities(); //list nhân viên có quan hệ tới tòa nhà đang cần giao
         List<ResponseAssignDTO> list = new ArrayList<>();
         for(UserEntity x : userEntityList){
             ResponseAssignDTO staffDTO = new ResponseAssignDTO();

@@ -127,7 +127,9 @@ public class BuildingService implements IBuildingService {
     @Override
     public TypeCodeResponseDTO listTypeCode(Long buildingId) {
         BuildingEntity buildingEntity = buildingRepository.findById(buildingId).get();
+        //Lấy list type code của tòa nhà trên
         List<String> currentTypeCode = Arrays.stream(buildingEntity.getTypeCode().split(",")).collect(Collectors.toList());
+        //Lấy danh sách tất cả loại tòa nhà trong enum
         Map<String,String> typeCodeList = TypeCode.getRentType();
         List<ResponseTypeDTO> list = new ArrayList<>();
         for(Map.Entry<String,String> it : typeCodeList.entrySet()){

@@ -27,15 +27,15 @@ public class BuildingAPI {
         iBuildingService.createOrUpdateBuilding(buildingDTO);
     }
 
-    @GetMapping("/{buildingId}/staffs")
-    public StaffResponseDTO loadStaff(@PathVariable Long buildingId) {
-        StaffResponseDTO staffResponseDTO = iUserService.listStaff(buildingId);
-        return staffResponseDTO;
+    @PutMapping("/{buildingId}")
+    public void updateBuilding(@RequestBody BuildingDTO buildingDTO, @PathVariable Long buildingId) { // thừa buildingIdneeus bỏ cũng được nhma viết vào cho nhớ hàm để lấy id từ request
+        iBuildingService.createOrUpdateBuilding(buildingDTO);
     }
 
-    @PutMapping("/{buildingId}")
-    public void updateBuilding(@RequestBody BuildingDTO buildingDTO, @PathVariable Long buildingId) {
-        iBuildingService.createOrUpdateBuilding(buildingDTO);
+    @GetMapping("/{buildingId}/staffs")
+    public StaffResponseDTO loadStaff(@PathVariable Long buildingId) { //lấy ra danh sách nhân viên quản lý 1 toàn nhà ở bảng danh sách
+        StaffResponseDTO staffResponseDTO = iUserService.listStaff(buildingId);
+        return staffResponseDTO;
     }
 
     @DeleteMapping
@@ -50,5 +50,6 @@ public class BuildingAPI {
         TypeCodeResponseDTO typeCodeResponseDTO = iBuildingService.listTypeCode(buildingId);
         return typeCodeResponseDTO;
     }
+
 
 }

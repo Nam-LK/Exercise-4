@@ -17,13 +17,13 @@ public class BuildingSearchRequest extends AbstractDTO {
     private String level;
     private Integer rentAreaFrom;
     private Integer rentAreaTo;
-    private List<String> typeCode = new ArrayList<>();
-
-    private Long staffId;
     private Integer rentPriceFrom;
     private Integer rentPriceTo;
     private String managerName;
     private String managerPhone;
+    private Long staffId;
+    private List<String> typeCode = new ArrayList<>();
+
 
     public String getName() {
         return name;

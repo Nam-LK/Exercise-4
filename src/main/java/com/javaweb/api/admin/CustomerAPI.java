@@ -59,7 +59,7 @@ public class CustomerAPI {
     }
 
     @GetMapping("/{customerId}/staffs")
-    public StaffResponseDTO loadStaff(@PathVariable Long customerId){
+    public StaffResponseDTO loadStaff(@PathVariable Long customerId){//hiện toàn bộ nhân vin nút giao khách hàng cho nhân viên
         return iCustomerService.listStaff(customerId);
     }
 

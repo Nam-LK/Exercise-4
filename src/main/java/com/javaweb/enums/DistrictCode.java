@@ -17,9 +17,11 @@ public enum DistrictCode {
     DistrictCode(String districtName){
         this.districtName = districtName;
     }
+
     public String getDistrictName(){
         return districtName;
     }
+
     public static Map<String,String> getDistrict(){
         Map<String,String> map = new TreeMap<>();
         for(DistrictCode x : DistrictCode.values()){

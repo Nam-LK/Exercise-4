@@ -34,12 +34,15 @@ public class BuildingController {
         this.messageUtils = messageUtils;
     }
 
-    @RequestMapping(value = "/admin/building-list",method = RequestMethod.GET)
+    @GetMapping(value = "/admin/building-list")
     public ModelAndView buildingList(@ModelAttribute("buildingSearch") BuildingSearchRequest buildingSearchRequest, HttpServletRequest request){
+        //Bảng tìm kiếm
         ModelAndView modelAndView = new ModelAndView("admin/building/list");
         modelAndView.addObject("districts", DistrictCode.getDistrict());
         modelAndView.addObject("typeCodes", TypeCode.getRentType());
         modelAndView.addObject("staffs",iUserService.getListStaff());
+
+        //Bảng trả kêt quả
         if(SecurityUtils.getAuthorities().contains("ROLE_STAFF")){
             Long staffId = SecurityUtils.getPrincipal().getId();
             buildingSearchRequest.setStaffId(staffId);
@@ -47,6 +50,8 @@ public class BuildingController {
         }else{
             modelAndView.addObject("buildings",iBuildingService.searchBuilding(buildingSearchRequest));
         }
+
+        //Phân trang
         DisplayTagUtils.of(request,buildingSearchRequest);
         Page<BuildingSearchResponse> buildingSearchResponsePage = iBuildingService.getBuildings(buildingSearchRequest, PageRequest.of(buildingSearchRequest.getPage()-1,buildingSearchRequest.getMaxPageItems()));
         buildingSearchRequest.setTotalItems(iBuildingService.countTotalItem());
@@ -55,7 +60,16 @@ public class BuildingController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/admin/building-edit",method = RequestMethod.GET)
+    private void initMessageResponse(ModelAndView mav, HttpServletRequest request) {
+        String message = request.getParameter("message");
+        if (message != null && StringUtils.isNotEmpty(message)) {
+            Map<String, String> messageMap = messageUtils.getMessage(message);
+            mav.addObject(SystemConstant.ALERT, messageMap.get(SystemConstant.ALERT));
+            mav.addObject(SystemConstant.MESSAGE_RESPONSE, messageMap.get(SystemConstant.MESSAGE_RESPONSE));
+        }
+    }
+
+    @GetMapping(value = "/admin/building-edit")
     public ModelAndView addBuilding(@ModelAttribute("buildingEdit")BuildingDTO buildingDTO){
         ModelAndView modelAndView = new ModelAndView("admin/building/edit");
         modelAndView.addObject("districts", DistrictCode.getDistrict());
@@ -71,15 +85,5 @@ public class BuildingController {
         modelAndView.addObject("typeCodes", TypeCode.getRentType());
         modelAndView.addObject("buildingEdit",buildingDTO);
         return  modelAndView;
-    }
-
-
-    private void initMessageResponse(ModelAndView mav, HttpServletRequest request) {
-        String message = request.getParameter("message");
-        if (message != null && StringUtils.isNotEmpty(message)) {
-            Map<String, String> messageMap = messageUtils.getMessage(message);
-            mav.addObject(SystemConstant.ALERT, messageMap.get(SystemConstant.ALERT));
-            mav.addObject(SystemConstant.MESSAGE_RESPONSE, messageMap.get(SystemConstant.MESSAGE_RESPONSE));
-        }
     }
 }

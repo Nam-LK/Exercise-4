@@ -93,7 +93,7 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
         sql.append(" group by b.id");
         Query query = entityManager.createNativeQuery(sql.toString(),BuildingEntity.class);
         List<BuildingEntity> list = new ArrayList<>();
-        list = (List<BuildingEntity>) query.getResultList();
+        list = (List<BuildingEntity>)query.getResultList();
         return list;
     }
 

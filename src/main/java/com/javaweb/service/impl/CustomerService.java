@@ -100,11 +100,11 @@ public class CustomerService implements ICustomerService {
     @Override
     @Transactional
     public void deleteCustomer(List<Long> ids) {
-            for (Long item : ids) {
-                CustomerEntity customerEntity = customerRepository.findById(item).get();
-                customerEntity.setActive(false);
-                customerRepository.save(customerEntity);
-            }
+        for (Long item : ids) {
+            CustomerEntity customerEntity = customerRepository.findById(item).get();
+            customerEntity.setActive(false);
+            customerRepository.save(customerEntity);
+        }
     }
 
     @Override
