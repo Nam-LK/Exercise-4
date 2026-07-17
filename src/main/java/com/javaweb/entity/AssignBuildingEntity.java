@@ -12,6 +12,7 @@ public class AssignBuildingEntity extends BuildingEntity {
 
     @ManyToOne
     @JoinColumn(name = "buildingid")
+    private BuildingEntity buildingEntity;
 
     @Column(name = "createddate")
     private Date createdDate;
@@ -24,10 +25,6 @@ public class AssignBuildingEntity extends BuildingEntity {
 
     @Column(name = "modifiedby")
     private String modifiedBy;
-
-    @ManyToOne
-    @JoinColumn(name = "building_entity_id")
-    private BuildingEntity buildingEntity;
 
     public UserEntity getUserEntity() {
         return userEntity;
@@ -43,5 +40,45 @@ public class AssignBuildingEntity extends BuildingEntity {
 
     public void setBuildingEntity(BuildingEntity buildingEntity) {
         this.buildingEntity = buildingEntity;
+    }
+
+    @Override
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    @Override
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    @Override
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
+
+    @Override
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
+
+    @Override
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    @Override
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    @Override
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    @Override
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
     }
 }

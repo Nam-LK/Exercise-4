@@ -16,19 +16,22 @@ public class BuildingAPI {
     private BuildingService buildingService;
 
 
-    @PostMapping("/amdin/building")
-    public void addOrUpdateBuilding(@RequestBody BuildingDTO buildingDTO){
-        //bên thêm mới tòa nhà có bao nhiêu field thì bên dto có đúng như vậy
-        //xuống service xuống db để update hoặc thêm mới
+    @PostMapping("/amdin/building-edit")
+    public void addOrUpdateBuilding(@RequestBody BuildingDTO buildingDTO){ //thêm mới tòa nhà
+        buildingService.addOrUpdateBuilding(buildingDTO);
+    }
+
+    @PostMapping("/amdin/building-edit-{id}")
+    public void addOrUpdateBuilding(@RequestBody BuildingDTO buildingDTO, @PathVariable Long id){ //sửa tòa nhà đã có id
+        buildingService.addOrUpdateBuilding(buildingDTO);
     }
 
     @DeleteMapping("/api/building/{id}")
-    public void deleteBuilding(@PathVariable List<Long> ids){
-        //xuống DB xóa theo danh sách id gửi về
-
+    public void deleteBuilding(@PathVariable Long[] ids){
+        buildingService.deleteBuilding(ids);
     }
     @GetMapping("/{id}/staffs")
-    public ResponseDTO loadAllStaffs(@PathVariable Long id){ //hàm lấy ra danh sách các nhân viên quản lý tòa nhà có buildingid = a nào đó
+    public ResponseDTO loadAllStaffs(@PathVariable Long id){
         ResponseDTO result = buildingService.listStaffs(id);
         return result;
         

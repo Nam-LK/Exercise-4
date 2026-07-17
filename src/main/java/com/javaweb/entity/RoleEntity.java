@@ -46,11 +46,8 @@ public class RoleEntity extends BaseEntity {
         this.id = id;
     }
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private List<UserEntity> user = new ArrayList<>();
-
-//    @OneToMany(mappedBy="roles",fetch = FetchType.LAZY)
-//    private List<UserRoleEntity> userRoleEntities = new ArrayList<>();
+    @OneToMany(mappedBy="roles",fetch = FetchType.LAZY)
+    private List<UserRoleEntity> userRoleEntities = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -68,12 +65,43 @@ public class RoleEntity extends BaseEntity {
         this.code = code;
     }
 
-    public List<UserEntity> getUsers() {
-        return user;
+    public Date getCreateddate() {
+        return createddate;
     }
 
-    public void setUsers(List<UserEntity> users) {
-        this.user = users;
+    public void setCreateddate(Date createddate) {
+        this.createddate = createddate;
     }
 
+    public Date getModifieddate() {
+        return modifieddate;
+    }
+
+    public void setModifieddate(Date modifieddate) {
+        this.modifieddate = modifieddate;
+    }
+
+    public String getCreatedby() {
+        return createdby;
+    }
+
+    public void setCreatedby(String createdby) {
+        this.createdby = createdby;
+    }
+
+    public String getModifiedby() {
+        return modifiedby;
+    }
+
+    public void setModifiedby(String modifiedby) {
+        this.modifiedby = modifiedby;
+    }
+
+    public List<UserRoleEntity> getUserRoleEntities() {
+        return userRoleEntities;
+    }
+
+    public void setUserRoleEntities(List<UserRoleEntity> userRoleEntities) {
+        this.userRoleEntities = userRoleEntities;
+    }
 }

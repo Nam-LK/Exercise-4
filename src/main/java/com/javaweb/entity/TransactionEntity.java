@@ -13,8 +13,9 @@ public class TransactionEntity {
     @Column(name = "note")
     private String note;
 
-    @Column(name = "customerid")
-    private Long customerid;
+    @ManyToOne
+    @JoinColumn(name = "customerid")
+    private CustomerEntity customer;
 
     @Column(name = "createddate")
     private Date createddate;
@@ -28,6 +29,71 @@ public class TransactionEntity {
     @Column(name = "modifiedby")
     private String modifiedby;
 
-    @Column(name = "type")
-    private String type;
+    @ManyToOne
+    @JoinColumn(name = "type")
+    private TransactionTypeEntity type;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public CustomerEntity getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(CustomerEntity customer) {
+        this.customer = customer;
+    }
+
+    public Date getCreateddate() {
+        return createddate;
+    }
+
+    public void setCreateddate(Date createddate) {
+        this.createddate = createddate;
+    }
+
+    public Date getModifieddate() {
+        return modifieddate;
+    }
+
+    public void setModifieddate(Date modifieddate) {
+        this.modifieddate = modifieddate;
+    }
+
+    public String getCreatedby() {
+        return createdby;
+    }
+
+    public void setCreatedby(String createdby) {
+        this.createdby = createdby;
+    }
+
+    public String getModifiedby() {
+        return modifiedby;
+    }
+
+    public void setModifiedby(String modifiedby) {
+        this.modifiedby = modifiedby;
+    }
+
+    public TransactionTypeEntity getType() {
+        return type;
+    }
+
+    public void setType(TransactionTypeEntity type) {
+        this.type = type;
+    }
 }

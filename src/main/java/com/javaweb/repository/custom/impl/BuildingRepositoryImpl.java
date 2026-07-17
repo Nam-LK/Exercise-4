@@ -1,22 +1,27 @@
 package com.javaweb.repository.custom.impl;
 
-
+import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.javaweb.builder.BuildingSearchBuilder;
 import com.javaweb.constant.SystemConstant;
 import com.javaweb.entity.BuildingEntity;
+import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.custom.BuildingRepositoryCustom;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.lang.reflect.Field;
-import java.util.Collections;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
     @PersistenceContext
     EntityManager entityManager;
+
+    @Autowired
+    private BuildingRepository buildingRepository;
 
     public static void joinTable(BuildingSearchBuilder buildingSearchBuilder, StringBuilder sql) {
         Long staffId = buildingSearchBuilder.getStaffId();
@@ -112,5 +117,10 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
         sql.append("GROUP BY b.id ");
         Query query = entityManager.createNativeQuery(sql.toString(), BuildingEntity.class);
         return query.getResultList();
+    }
+
+    @Override
+    public void addOrUpdateBuilding(BuildingEntity buildingEntity) {
+        buildingRepository.save(buildingEntity);
     }
 }

@@ -9,11 +9,35 @@ public class BuildingRentTypeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "buildingid")
-    private Long buildingid;
+    @ManyToOne
+    @JoinColumn(name = "buildingid")
+    private BuildingEntity buildingEntity;
 
-    @Column(name = "renttypeid")
-    private Long renttypeid;
+    @ManyToOne
+    @JoinColumn(name = "renttypeid")
+    private RentTypeEntity rentTypeEntity;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public BuildingEntity getBuildingEntity() {
+        return buildingEntity;
+    }
+
+    public void setBuildingEntity(BuildingEntity buildingEntity) {
+        this.buildingEntity = buildingEntity;
+    }
+
+    public RentTypeEntity getRentTypeEntity() {
+        return rentTypeEntity;
+    }
+
+    public void setRentTypeEntity(RentTypeEntity rentTypeEntity) {
+        this.rentTypeEntity = rentTypeEntity;
+    }
 }

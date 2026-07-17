@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BuildingDTO extends AbstractDTO{
+    //nhận dữ liệu từ chỗ tạo mới hoặc edit 1 tòa nhà
     private Long id;
     private String name;
     private String street;

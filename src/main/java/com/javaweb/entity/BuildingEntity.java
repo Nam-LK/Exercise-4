@@ -16,8 +16,9 @@ public class BuildingEntity extends BaseEntity {
     @Column(name = "ward")
     private String ward;
 
-    @Column(name = "district")
-    private String district;
+    @ManyToOne
+    @JoinColumn(name = "districtid") //ManyToOne thì phải thêm có joincolum với khóa ngoại tham chiếu tới khóa chính bên kia
+    private DistrictEntity district;
 
     @Column(name = "structure")
     private String structure;
@@ -97,21 +98,15 @@ public class BuildingEntity extends BaseEntity {
     @Column(name = "image")
     private String image;
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "buildingEntity")
-//    List<AssignBuildingEntity> assignBuildingEntityList = new ArrayList<>();
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "assignmentbuilding",
-        joinColumns = @JoinColumn(name = "buildingid", nullable = false),
-        inverseJoinColumns = @JoinColumn(name = "staffid", nullable = false))
-    private List<UserEntity> userEntities  = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "buildingEntity")
+    List<BuildingRentTypeEntity> buildingRentTypeEntities = new ArrayList<>();
 
-    public List<UserEntity> getUserEntities() {
-        return userEntities;
-    }
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "building")
+    List<RentAreaEntity> rentAreas = new ArrayList<>();
 
-    public void setUserEntities(List<UserEntity> userEntities) {
-        this.userEntities = userEntities;
-    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "buildingEntity")
+    List<AssignBuildingEntity> assignBuildingEntityList = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -137,11 +132,11 @@ public class BuildingEntity extends BaseEntity {
         this.ward = ward;
     }
 
-    public String getDistrict() {
+    public DistrictEntity getDistrict() {
         return district;
     }
 
-    public void setDistrict(String district) {
+    public void setDistrict(DistrictEntity district) {
         this.district = district;
     }
 
@@ -353,11 +348,27 @@ public class BuildingEntity extends BaseEntity {
         this.image = image;
     }
 
-//    public List<AssignBuildingEntity> getAssignBuildingEntityList() {
-//        return assignBuildingEntityList;
-//    }
-//
-//    public void setAssignBuildingEntityList(List<AssignBuildingEntity> assignBuildingEntityList) {
-//        this.assignBuildingEntityList = assignBuildingEntityList;
-//    }
+    public List<BuildingRentTypeEntity> getBuildingRentTypeEntities() {
+        return buildingRentTypeEntities;
+    }
+
+    public void setBuildingRentTypeEntities(List<BuildingRentTypeEntity> buildingRentTypeEntities) {
+        this.buildingRentTypeEntities = buildingRentTypeEntities;
+    }
+
+    public List<RentAreaEntity> getRentAreas() {
+        return rentAreas;
+    }
+
+    public void setRentAreas(List<RentAreaEntity> rentAreas) {
+        this.rentAreas = rentAreas;
+    }
+
+    public List<AssignBuildingEntity> getAssignBuildingEntityList() {
+        return assignBuildingEntityList;
+    }
+
+    public void setAssignBuildingEntityList(List<AssignBuildingEntity> assignBuildingEntityList) {
+        this.assignBuildingEntityList = assignBuildingEntityList;
+    }
 }

@@ -8,7 +8,6 @@ import java.util.List;
 @Entity
 @Table(name = "user")
 public class UserEntity extends BaseEntity {
-
     private static final long serialVersionUID = -4988455421375043688L;
 
     @Id
@@ -45,34 +44,28 @@ public class UserEntity extends BaseEntity {
     @Column(name = "modifiedby")
     private String modifiedby;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false))
-    private List<RoleEntity> roles = new ArrayList<>();
+    @OneToMany(mappedBy="userEntity", fetch = FetchType.LAZY)
+    private List<AssignBuildingEntity> assignBuildingEntities = new ArrayList<>();
 
-
-    @ManyToMany(mappedBy = "userEntities", fetch = FetchType.LAZY)
-    private List<BuildingEntity> buildingEntities = new ArrayList<>();
-
-    public List<BuildingEntity> getBuildingEntities() {
-        return buildingEntities;
-    }
-
-    public void setBuildingEntities(List<BuildingEntity> buildingEntities) {
-        this.buildingEntities = buildingEntities;
-    }
-
-    //    @OneToMany(mappedBy="staffs", fetch = FetchType.LAZY)
-//    private List<AssignmentBuildingEntity> assignmentBuildingEntities = new ArrayList<>();
-//
-//    @OneToMany(mappedBy="users", fetch = FetchType.LAZY)
-//    private List<UserRoleEntity> userRoleEntities = new ArrayList<>();
+    @OneToMany(mappedBy="users", fetch = FetchType.LAZY)
+    private List<UserRoleEntity> userRoleEntities = new ArrayList<>();
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "staff")
+    private List<AssignCustomerEntity> assignCustomerEntities = new ArrayList<>();
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUserName() {
         return userName;
@@ -80,14 +73,6 @@ public class UserEntity extends BaseEntity {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public String getPassword() {
@@ -98,20 +83,20 @@ public class UserEntity extends BaseEntity {
         this.password = password;
     }
 
-    public Integer getStatus() {
-        return status;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public List<RoleEntity> getRoles() {
-        return roles;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setRoles(List<RoleEntity> roles) {
-        this.roles = roles;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {
@@ -121,11 +106,68 @@ public class UserEntity extends BaseEntity {
     public void setEmail(String email) {
         this.email = email;
     }
-    public Long getId() {
-        return id;
+
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Date getCreateddate() {
+        return createddate;
+    }
+
+    public void setCreateddate(Date createddate) {
+        this.createddate = createddate;
+    }
+
+    public Date getModifieddate() {
+        return modifieddate;
+    }
+
+    public void setModifieddate(Date modifieddate) {
+        this.modifieddate = modifieddate;
+    }
+
+    public String getCreatedby() {
+        return createdby;
+    }
+
+    public void setCreatedby(String createdby) {
+        this.createdby = createdby;
+    }
+
+    public String getModifiedby() {
+        return modifiedby;
+    }
+
+    public void setModifiedby(String modifiedby) {
+        this.modifiedby = modifiedby;
+    }
+
+    public List<AssignBuildingEntity> getAssignBuildingEntities() {
+        return assignBuildingEntities;
+    }
+
+    public void setAssignBuildingEntities(List<AssignBuildingEntity> assignBuildingEntities) {
+        this.assignBuildingEntities = assignBuildingEntities;
+    }
+
+    public List<UserRoleEntity> getUserRoleEntities() {
+        return userRoleEntities;
+    }
+
+    public void setUserRoleEntities(List<UserRoleEntity> userRoleEntities) {
+        this.userRoleEntities = userRoleEntities;
+    }
+
+    public List<AssignCustomerEntity> getAssignCustomerEntities() {
+        return assignCustomerEntities;
+    }
+
+    public void setAssignCustomerEntities(List<AssignCustomerEntity> assignCustomerEntities) {
+        this.assignCustomerEntities = assignCustomerEntities;
     }
 }

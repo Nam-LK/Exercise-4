@@ -1,9 +1,12 @@
 package com.javaweb.service.impl;
 
 import com.javaweb.builder.BuildingSearchBuilder;
+import com.javaweb.converter.BuildingEditConverter;
 import com.javaweb.converter.BuildingSearchBuilderConverter;
+import com.javaweb.converter.BuildingSearchResponseConverter;
 import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.UserEntity;
+import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.model.response.ResponseDTO;
@@ -24,6 +27,12 @@ public class BuildingServiceImpl implements BuildingService {
     private BuildingRepository buildingRepository;
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private BuildingSearchResponseConverter buildingSearchResponseConverter;
+
+    @Autowired
+    private BuildingEditConverter buildingEditConverter;
 
     @Override
     public ResponseDTO listStaffs(Long buildingId) {
@@ -54,10 +63,20 @@ public class BuildingServiceImpl implements BuildingService {
         List<BuildingEntity> searchResult = buildingRepository.searchBuilding(buildingSearchBuilder);
         List<BuildingSearchResponse> res = new ArrayList<>();
         for (BuildingEntity building : searchResult) {
-            BuildingSearchResponse buildingSearchResponse =
-
+            BuildingSearchResponse buildingSearchResponse = buildingSearchResponseConverter.toBuildingSearchResponse(building);
+            res.add(buildingSearchResponse);
         }
-
         return res;
+    }
+
+    @Override
+    public void addOrUpdateBuilding(BuildingDTO buildingDTO) {
+        BuildingEntity buildingEntity = buildingEditConverter.toBuildingEntity(buildingDTO);
+        buildingRepository.addOrUpdateBuilding(buildingEntity);
+    }
+
+    @Override
+    public void deleteBuilding(Long[] ids) {
+        buildingRepository.deleteByIdIn(ids);
     }
 }
