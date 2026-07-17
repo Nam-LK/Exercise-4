@@ -2,6 +2,7 @@ package com.javaweb.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,6 +19,18 @@ public class RoleEntity extends BaseEntity {
 
     @Column(name="code")
     private String code;
+
+    @Column(name = "createddate")
+    private Date createddate;
+
+    @Column(name = "modifieddate")
+    private Date modifieddate;
+
+    @Column(name = "createdby")
+    private String createdby;
+
+    @Column(name = "modifiedby")
+    private String modifiedby;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

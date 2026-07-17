@@ -1,9 +1,7 @@
 package com.javaweb.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "assignmentbuilding")
@@ -14,6 +12,21 @@ public class AssignBuildingEntity extends BuildingEntity {
 
     @ManyToOne
     @JoinColumn(name = "buildingid")
+
+    @Column(name = "createddate")
+    private Date createdDate;
+
+    @Column(name = "modifieddate")
+    private Date modifiedDate;
+
+    @Column(name = "createdby")
+    private String createdBy;
+
+    @Column(name = "modifiedby")
+    private String modifiedBy;
+
+    @ManyToOne
+    @JoinColumn(name = "building_entity_id")
     private BuildingEntity buildingEntity;
 
     public UserEntity getUserEntity() {

@@ -2,6 +2,7 @@ package com.javaweb.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,17 +18,32 @@ public class UserEntity extends BaseEntity {
     @Column(name = "username", nullable = false, unique = true)
     private String userName;
 
+    @Column(name = "password", nullable = false)
+    private String password;
+
     @Column(name = "fullname", nullable = false)
     private String fullName;
 
-    @Column(name = "password", nullable = false)
-    private String password;
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "email", unique = true)
+    private String email;
 
     @Column(name = "status", nullable = false)
     private Integer status;
 
-    @Column(name = "email", unique = true)
-    private String email;
+    @Column(name = "createddate")
+    private Date createddate;
+
+    @Column(name = "modifieddate")
+    private Date modifieddate;
+
+    @Column(name = "createdby")
+    private String createdby;
+
+    @Column(name = "modifiedby")
+    private String modifiedby;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role",
@@ -105,12 +121,10 @@ public class UserEntity extends BaseEntity {
     public void setEmail(String email) {
         this.email = email;
     }
-        @Override
     public Long getId() {
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }
