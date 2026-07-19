@@ -1,12 +1,19 @@
 package com.javaweb.service.impl;
 
 import com.javaweb.constant.SystemConstant;
+import com.javaweb.converter.AssignCustomerCoverter;
+import com.javaweb.converter.AssignmentBuildingConverter;
 import com.javaweb.converter.UserConverter;
+import com.javaweb.entity.AssignBuildingEntity;
+import com.javaweb.entity.AssignCustomerEntity;
+import com.javaweb.model.dto.AssignCustomerDTO;
+import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.model.dto.PasswordDTO;
 import com.javaweb.model.dto.UserDTO;
 import com.javaweb.entity.RoleEntity;
 import com.javaweb.entity.UserEntity;
 import com.javaweb.exception.MyException;
+import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.RoleRepository;
 import com.javaweb.repository.UserRepository;
 import com.javaweb.service.IUserService;
@@ -26,6 +33,9 @@ import java.util.stream.Stream;
 public class UserService implements IUserService {
 
     @Autowired
+    private BuildingRepository buildingRepository;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -36,6 +46,12 @@ public class UserService implements IUserService {
 
     @Autowired
     private UserConverter userConverter;
+
+    @Autowired
+    private AssignmentBuildingConverter assignmentBuildingConverter;
+
+    @Autowired
+    private AssignCustomerCoverter assignCustomerCoverter;
 
 
 
@@ -89,6 +105,18 @@ public class UserService implements IUserService {
             listStaffs.put(it.getId(), it.getFullName());
         }
         return listStaffs;
+    }
+
+    @Override
+    public void updateAssignment(AssignmentBuildingDTO assignmentBuildingDTO) {
+        AssignBuildingEntity assignBuildingEntity = assignmentBuildingConverter.toAssignBuildingEntity(assignmentBuildingDTO);
+        buildingRepository.updateAssignBuilding(assignBuildingEntity);
+    }
+
+    @Override
+    public void updateAssign(AssignCustomerDTO assignCustomerDTO) {
+        AssignCustomerEntity assignCustomerEntity = assignCustomerCoverter.toAssignCustomerEntity(assignCustomerDTO);
+        userRepository.updateAssign(assignCustomerEntity);
     }
 
 

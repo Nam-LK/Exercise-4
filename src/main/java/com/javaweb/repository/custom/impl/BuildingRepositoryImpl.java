@@ -1,8 +1,8 @@
 package com.javaweb.repository.custom.impl;
 
-import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.javaweb.builder.BuildingSearchBuilder;
 import com.javaweb.constant.SystemConstant;
+import com.javaweb.entity.AssignBuildingEntity;
 import com.javaweb.entity.BuildingEntity;
 import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.custom.BuildingRepositoryCustom;
@@ -122,5 +122,10 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
     @Override
     public void addOrUpdateBuilding(BuildingEntity buildingEntity) {
         buildingRepository.save(buildingEntity);
+    }
+
+    @Override
+    public void updateAssignBuilding(AssignBuildingEntity assignBuildingEntity) {
+
     }
 }

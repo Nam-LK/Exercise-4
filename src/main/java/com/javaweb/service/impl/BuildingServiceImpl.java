@@ -4,6 +4,7 @@ import com.javaweb.builder.BuildingSearchBuilder;
 import com.javaweb.converter.BuildingEditConverter;
 import com.javaweb.converter.BuildingSearchBuilderConverter;
 import com.javaweb.converter.BuildingSearchResponseConverter;
+import com.javaweb.entity.AssignBuildingEntity;
 import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.UserEntity;
 import com.javaweb.model.dto.BuildingDTO;
@@ -38,7 +39,13 @@ public class BuildingServiceImpl implements BuildingService {
     public ResponseDTO listStaffs(Long buildingId) {
         BuildingEntity building = buildingRepository.findById(buildingId).get();
         List<UserEntity> staffs = userRepository.findByStatusAndRoles_Code(1, "STAFF");
-        List<UserEntity> staffAssigment = building.getUserEntities();
+//        List<UserEntity> staffAssigment = building.getUserEntities();
+        List<AssignBuildingEntity> res1 = building.getAssignBuildingEntityList();
+        List<UserEntity> staffAssigment = new ArrayList<>();
+        for(AssignBuildingEntity assignBuildingEntity : res1) {
+            staffAssigment.add(assignBuildingEntity.getUserEntity());
+        }
+
         List<StaffResponseDTO> staffResponseDTOList = new ArrayList<>();
         ResponseDTO responseDTO = new ResponseDTO();
         for (UserEntity staff : staffs) {

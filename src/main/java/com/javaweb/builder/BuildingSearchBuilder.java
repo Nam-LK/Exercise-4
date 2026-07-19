@@ -169,5 +169,4 @@ public class BuildingSearchBuilder {
             return new BuildingSearchBuilder(this);
         }
     }
-
 }

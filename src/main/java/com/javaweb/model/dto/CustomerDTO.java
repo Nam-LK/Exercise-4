@@ -1,13 +1,14 @@
 package com.javaweb.model.dto;
 
 public class CustomerDTO extends AbstractDTO{
+    //có id extend từ AbstractDTO rồi
     private String name;
-    private String managementStaff;
     private String customerPhone;
     private String email;
+    private String managementStaff;
+    private String companyName;
     private String demand;
     private String status;
-    private String companyName;
 
     public String getCompanyName() {
         return companyName;

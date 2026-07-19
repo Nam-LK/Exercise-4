@@ -1,6 +1,8 @@
 package com.javaweb.repository.custom.impl;
 
+import com.javaweb.entity.AssignCustomerEntity;
 import com.javaweb.entity.UserEntity;
+import com.javaweb.repository.UserRepository;
 import com.javaweb.repository.custom.UserRepositoryCustom;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -12,9 +14,14 @@ import java.util.List;
 
 @Repository
 public class UserRepositoryImpl implements UserRepositoryCustom {
-	
+
+	private final UserRepository userRepository;
 	@PersistenceContext
 	private EntityManager entityManager;
+
+	public UserRepositoryImpl(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
 
 	@Override
 	public List<UserEntity> findByRole(String roleCode) {
@@ -41,6 +48,17 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 		String sql = buildQueryFilter();
 		Query query = entityManager.createNativeQuery(sql.toString());
 		return query.getResultList().size();
+	}
+
+	@Override
+	public void updateAssign(AssignCustomerEntity assign) {
+		UserEntity user = userRepository.findById(assign.getCustomer().getId()).orElse(null);
+		if (user != null) {
+			List<AssignCustomerEntity> assignCus = user.getAssignCustomerEntities();
+			for (AssignCustomerEntity assignCusEntity : assignCus) {
+			}
+		}
+
 	}
 
 	private String buildQueryFilter() {

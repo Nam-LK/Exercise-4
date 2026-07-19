@@ -1,5 +1,6 @@
 package com.javaweb.service;
 
+import com.javaweb.model.dto.AssignCustomerDTO;
 import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.model.dto.PasswordDTO;
 import com.javaweb.model.dto.UserDTO;
@@ -39,5 +40,9 @@ public interface IUserService {
     int countTotalItems();
 
     Map<Long,String> getStaffs();
+
+    void updateAssignment(AssignmentBuildingDTO assignmentBuildingDTO);
+
+    void updateAssign(AssignCustomerDTO assignCustomerDTO);
 
 }
