@@ -1,9 +1,11 @@
 package com.javaweb.repository.custom.impl;
 
-import com.javaweb.entity.AssignCustomerEntity;
 import com.javaweb.entity.UserEntity;
+
+import com.javaweb.repository.CustomerRepository;
 import com.javaweb.repository.UserRepository;
 import com.javaweb.repository.custom.UserRepositoryCustom;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +20,8 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 	private final UserRepository userRepository;
 	@PersistenceContext
 	private EntityManager entityManager;
+	@Autowired
+	private CustomerRepository customerRepository;
 
 	public UserRepositoryImpl(UserRepository userRepository) {
 		this.userRepository = userRepository;
@@ -50,16 +54,6 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 		return query.getResultList().size();
 	}
 
-	@Override
-	public void updateAssign(AssignCustomerEntity assign) {
-		UserEntity user = userRepository.findById(assign.getCustomer().getId()).orElse(null);
-		if (user != null) {
-			List<AssignCustomerEntity> assignCus = user.getAssignCustomerEntities();
-			for (AssignCustomerEntity assignCusEntity : assignCus) {
-			}
-		}
-
-	}
 
 	private String buildQueryFilter() {
 		String sql = "SELECT * FROM user u WHERE u.status = 1";

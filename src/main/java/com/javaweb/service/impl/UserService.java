@@ -1,8 +1,6 @@
 package com.javaweb.service.impl;
 
 import com.javaweb.constant.SystemConstant;
-import com.javaweb.converter.AssignCustomerCoverter;
-import com.javaweb.converter.AssignmentBuildingConverter;
 import com.javaweb.converter.UserConverter;
 import com.javaweb.entity.AssignBuildingEntity;
 import com.javaweb.entity.AssignCustomerEntity;
@@ -46,14 +44,6 @@ public class UserService implements IUserService {
 
     @Autowired
     private UserConverter userConverter;
-
-    @Autowired
-    private AssignmentBuildingConverter assignmentBuildingConverter;
-
-    @Autowired
-    private AssignCustomerCoverter assignCustomerCoverter;
-
-
 
     @Override
     public UserDTO findOneByUserNameAndStatus(String name, int status) {
@@ -109,14 +99,12 @@ public class UserService implements IUserService {
 
     @Override
     public void updateAssignment(AssignmentBuildingDTO assignmentBuildingDTO) {
-        AssignBuildingEntity assignBuildingEntity = assignmentBuildingConverter.toAssignBuildingEntity(assignmentBuildingDTO);
-        buildingRepository.updateAssignBuilding(assignBuildingEntity);
+        buildingRepository.updateAssignBuilding(assignmentBuildingDTO);
     }
 
     @Override
     public void updateAssign(AssignCustomerDTO assignCustomerDTO) {
-        AssignCustomerEntity assignCustomerEntity = assignCustomerCoverter.toAssignCustomerEntity(assignCustomerDTO);
-        userRepository.updateAssign(assignCustomerEntity);
+        userRepository.updateAssign(assignCustomerDTO);
     }
 
 

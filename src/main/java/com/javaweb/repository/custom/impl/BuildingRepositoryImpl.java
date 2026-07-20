@@ -2,9 +2,10 @@ package com.javaweb.repository.custom.impl;
 
 import com.javaweb.builder.BuildingSearchBuilder;
 import com.javaweb.constant.SystemConstant;
-import com.javaweb.entity.AssignBuildingEntity;
-import com.javaweb.entity.BuildingEntity;
+import com.javaweb.entity.*;
+import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.repository.BuildingRepository;
+import com.javaweb.repository.UserRepository;
 import com.javaweb.repository.custom.BuildingRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,6 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.lang.reflect.Field;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +24,9 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
 
     @Autowired
     private BuildingRepository buildingRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public static void joinTable(BuildingSearchBuilder buildingSearchBuilder, StringBuilder sql) {
         Long staffId = buildingSearchBuilder.getStaffId();
@@ -125,7 +130,18 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
     }
 
     @Override
-    public void updateAssignBuilding(AssignBuildingEntity assignBuildingEntity) {
-
+    public void updateAssignBuilding(AssignmentBuildingDTO assignBuilding) {
+        BuildingEntity buildingEntity = buildingRepository.findById(assignBuilding.getBuildingId()).get();
+        List<AssignBuildingEntity> list = new ArrayList<>();
+        List<Long> staffIds = assignBuilding.getStaffs();
+        for (Long staffId : staffIds) {
+            UserEntity userEntity = userRepository.findById(staffId).get();
+            AssignBuildingEntity assignBuildingEntity = new AssignBuildingEntity();
+            assignBuildingEntity.setUserEntity(userEntity);
+            assignBuildingEntity.setBuildingEntity(buildingEntity);
+            list.add(assignBuildingEntity);
+        }
+        buildingEntity.setAssignBuildingEntityList(list);
+        buildingRepository.save(buildingEntity);
     }
 }

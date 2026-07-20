@@ -2,8 +2,12 @@ package com.javaweb.repository.custom.impl;
 
 import com.javaweb.builder.CustomerSearchBuilder;
 import com.javaweb.constant.SystemConstant;
+import com.javaweb.entity.AssignCustomerEntity;
 import com.javaweb.entity.CustomerEntity;
+import com.javaweb.entity.UserEntity;
+import com.javaweb.model.dto.AssignCustomerDTO;
 import com.javaweb.repository.CustomerRepository;
+import com.javaweb.repository.UserRepository;
 import com.javaweb.repository.custom.CustomerRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 @Repository
 public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
@@ -20,6 +25,9 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private UserRepository userRepository;
     public static void joinTable(CustomerSearchBuilder builder, StringBuilder sql){
         Long staffId = builder.getStaffId();
         if (staffId != null) {
@@ -82,5 +90,21 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
     @Override
     public CustomerEntity getCustomer(Long customerId) {
         return customerRepository.findById(customerId).get();
+    }
+
+    @Override
+    public void updateAssign(AssignCustomerDTO assign) {
+        CustomerEntity customerEntity = customerRepository.findById(assign.getCustomerId()).get();
+        List<AssignCustomerEntity> list = new ArrayList<>();
+        List<Long> staffIds = assign.getStaffs();
+        for (Long staffId : staffIds) {
+            UserEntity userEntity = userRepository.findById(staffId).get();
+            AssignCustomerEntity assignCustomerEntity = new AssignCustomerEntity();
+            assignCustomerEntity.setStaff(userEntity);
+            assignCustomerEntity.setCustomer(customerEntity);
+            list.add(assignCustomerEntity);
+        }
+        customerEntity.setAssignCustomers(list);
+        customerRepository.save(customerEntity);
     }
 }
