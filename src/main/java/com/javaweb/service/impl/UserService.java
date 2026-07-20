@@ -12,6 +12,7 @@ import com.javaweb.entity.RoleEntity;
 import com.javaweb.entity.UserEntity;
 import com.javaweb.exception.MyException;
 import com.javaweb.repository.BuildingRepository;
+import com.javaweb.repository.CustomerRepository;
 import com.javaweb.repository.RoleRepository;
 import com.javaweb.repository.UserRepository;
 import com.javaweb.service.IUserService;
@@ -44,6 +45,8 @@ public class UserService implements IUserService {
 
     @Autowired
     private UserConverter userConverter;
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @Override
     public UserDTO findOneByUserNameAndStatus(String name, int status) {
@@ -104,7 +107,7 @@ public class UserService implements IUserService {
 
     @Override
     public void updateAssign(AssignCustomerDTO assignCustomerDTO) {
-        userRepository.updateAssign(assignCustomerDTO);
+        customerRepository.updateAssign(assignCustomerDTO);
     }
 
 

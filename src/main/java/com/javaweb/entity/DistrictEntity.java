@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "district")
-public class DistrictEntity {
+public class DistrictEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

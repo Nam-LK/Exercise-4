@@ -1,6 +1,5 @@
 package com.javaweb.enums;
 
-
 import java.util.*;
 
 public enum BuildingType {

@@ -6,7 +6,6 @@ import com.javaweb.entity.AssignCustomerEntity;
 import com.javaweb.entity.CustomerEntity;
 import com.javaweb.entity.UserEntity;
 import com.javaweb.model.dto.AssignCustomerDTO;
-import com.javaweb.repository.CustomerRepository;
 import com.javaweb.repository.UserRepository;
 import com.javaweb.repository.custom.CustomerRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +21,6 @@ import java.util.List;
 public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
     @PersistenceContext
     private EntityManager em;
-
-    @Autowired
-    private CustomerRepository customerRepository;
 
     @Autowired
     private UserRepository userRepository;

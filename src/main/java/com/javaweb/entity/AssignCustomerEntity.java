@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "assignmentcustomer")
-public class AssignCustomerEntity {
+public class AssignCustomerEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,17 +18,6 @@ public class AssignCustomerEntity {
     @JoinColumn(name = "customerid")
     private CustomerEntity customer;
 
-    @Column(name = "createddate")
-    private Date createdDate;
-
-    @Column(name = "modifieddate")
-    private Date modifiedDate;
-
-    @Column(name = "createdby")
-    private String createdBy;
-
-    @Column(name = "modifiedby")
-    private String modifiedBy;
 
     public Long getId() {
         return id;
@@ -54,35 +43,5 @@ public class AssignCustomerEntity {
         this.customer = customer;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getModifiedDate() {
-        return modifiedDate;
-    }
-
-    public void setModifiedDate(Date modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
 }

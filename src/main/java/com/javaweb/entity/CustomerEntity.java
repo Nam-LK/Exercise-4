@@ -21,17 +21,7 @@ public class CustomerEntity {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "createddate")
-    private Date createddate;
 
-    @Column(name = "modifieddate")
-    private Date modifieddate;
-
-    @Column(name = "createdby")
-    private String createdby;
-
-    @Column(name = "modifiedby")
-    private String modifiedby;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     private List<AssignCustomerEntity> assignCustomers = new ArrayList<>();
@@ -71,37 +61,7 @@ public class CustomerEntity {
         this.email = email;
     }
 
-    public Date getCreateddate() {
-        return createddate;
-    }
 
-    public void setCreateddate(Date createddate) {
-        this.createddate = createddate;
-    }
-
-    public Date getModifieddate() {
-        return modifieddate;
-    }
-
-    public void setModifieddate(Date modifieddate) {
-        this.modifieddate = modifieddate;
-    }
-
-    public String getCreatedby() {
-        return createdby;
-    }
-
-    public void setCreatedby(String createdby) {
-        this.createdby = createdby;
-    }
-
-    public String getModifiedby() {
-        return modifiedby;
-    }
-
-    public void setModifiedby(String modifiedby) {
-        this.modifiedby = modifiedby;
-    }
 
     public List<AssignCustomerEntity> getAssignCustomers() {
         return assignCustomers;

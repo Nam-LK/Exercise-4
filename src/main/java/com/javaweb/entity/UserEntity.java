@@ -32,23 +32,19 @@ public class UserEntity extends BaseEntity {
     @Column(name = "status", nullable = false)
     private Integer status;
 
-    @Column(name = "createddate")
-    private Date createddate;
-
-    @Column(name = "modifieddate")
-    private Date modifieddate;
-
-    @Column(name = "createdby")
-    private String createdby;
-
-    @Column(name = "modifiedby")
-    private String modifiedby;
-
     @OneToMany(mappedBy="userEntity", fetch = FetchType.LAZY)
     private List<AssignBuildingEntity> assignBuildingEntities = new ArrayList<>();
 
-    @OneToMany(mappedBy="users", fetch = FetchType.LAZY)
-    private List<UserRoleEntity> userRoleEntities = new ArrayList<>();
+//    @OneToMany(mappedBy="users", fetch = FetchType.LAZY)
+//    private List<UserRoleEntity> userRoleEntities = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "userid"),
+            inverseJoinColumns = @JoinColumn(name = "roleid")
+    )
+    private List<RoleEntity> roles = new ArrayList<>();
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -115,38 +111,6 @@ public class UserEntity extends BaseEntity {
         this.status = status;
     }
 
-    public Date getCreateddate() {
-        return createddate;
-    }
-
-    public void setCreateddate(Date createddate) {
-        this.createddate = createddate;
-    }
-
-    public Date getModifieddate() {
-        return modifieddate;
-    }
-
-    public void setModifieddate(Date modifieddate) {
-        this.modifieddate = modifieddate;
-    }
-
-    public String getCreatedby() {
-        return createdby;
-    }
-
-    public void setCreatedby(String createdby) {
-        this.createdby = createdby;
-    }
-
-    public String getModifiedby() {
-        return modifiedby;
-    }
-
-    public void setModifiedby(String modifiedby) {
-        this.modifiedby = modifiedby;
-    }
-
     public List<AssignBuildingEntity> getAssignBuildingEntities() {
         return assignBuildingEntities;
     }
@@ -155,12 +119,21 @@ public class UserEntity extends BaseEntity {
         this.assignBuildingEntities = assignBuildingEntities;
     }
 
-    public List<UserRoleEntity> getUserRoleEntities() {
-        return userRoleEntities;
+//    public List<UserRoleEntity> getUserRoleEntities() {
+//        return userRoleEntities;
+//    }
+//
+//    public void setUserRoleEntities(List<UserRoleEntity> userRoleEntities) {
+//        this.userRoleEntities = userRoleEntities;
+//    }
+
+
+    public List<RoleEntity> getRoles() {
+        return roles;
     }
 
-    public void setUserRoleEntities(List<UserRoleEntity> userRoleEntities) {
-        this.userRoleEntities = userRoleEntities;
+    public void setRoles(List<RoleEntity> roles) {
+        this.roles = roles;
     }
 
     public List<AssignCustomerEntity> getAssignCustomerEntities() {

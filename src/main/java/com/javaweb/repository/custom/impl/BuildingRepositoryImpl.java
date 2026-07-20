@@ -23,9 +23,6 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
     EntityManager entityManager;
 
     @Autowired
-    private BuildingRepository buildingRepository;
-
-    @Autowired
     private UserRepository userRepository;
 
     public static void joinTable(BuildingSearchBuilder buildingSearchBuilder, StringBuilder sql) {
@@ -126,12 +123,19 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
 
     @Override
     public void addOrUpdateBuilding(BuildingEntity buildingEntity) {
-        buildingRepository.save(buildingEntity);
+        if (buildingEntity.getId() == null) {
+            entityManager.persist(buildingEntity);
+        } else {
+            entityManager.merge(buildingEntity);
+        }
     }
 
     @Override
     public void updateAssignBuilding(AssignmentBuildingDTO assignBuilding) {
-        BuildingEntity buildingEntity = buildingRepository.findById(assignBuilding.getBuildingId()).get();
+        BuildingEntity buildingEntity = entityManager.find(
+                BuildingEntity.class,
+                assignBuilding.getBuildingId()
+        );
         List<AssignBuildingEntity> list = new ArrayList<>();
         List<Long> staffIds = assignBuilding.getStaffs();
         for (Long staffId : staffIds) {
@@ -142,6 +146,6 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
             list.add(assignBuildingEntity);
         }
         buildingEntity.setAssignBuildingEntityList(list);
-        buildingRepository.save(buildingEntity);
+        entityManager.merge(buildingEntity);
     }
 }

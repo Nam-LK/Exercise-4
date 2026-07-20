@@ -20,18 +20,6 @@ public class RoleEntity extends BaseEntity {
     @Column(name="code")
     private String code;
 
-    @Column(name = "createddate")
-    private Date createddate;
-
-    @Column(name = "modifieddate")
-    private Date modifieddate;
-
-    @Column(name = "createdby")
-    private String createdby;
-
-    @Column(name = "modifiedby")
-    private String modifiedby;
-
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
@@ -46,8 +34,11 @@ public class RoleEntity extends BaseEntity {
         this.id = id;
     }
 
-    @OneToMany(mappedBy="roles",fetch = FetchType.LAZY)
-    private List<UserRoleEntity> userRoleEntities = new ArrayList<>();
+//    @OneToMany(mappedBy="roles",fetch = FetchType.LAZY)
+//    private List<UserRoleEntity> userRoleEntities = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    private List<UserEntity> users = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -65,43 +56,11 @@ public class RoleEntity extends BaseEntity {
         this.code = code;
     }
 
-    public Date getCreateddate() {
-        return createddate;
+    public List<UserEntity> getUsers() {
+        return users;
     }
 
-    public void setCreateddate(Date createddate) {
-        this.createddate = createddate;
-    }
-
-    public Date getModifieddate() {
-        return modifieddate;
-    }
-
-    public void setModifieddate(Date modifieddate) {
-        this.modifieddate = modifieddate;
-    }
-
-    public String getCreatedby() {
-        return createdby;
-    }
-
-    public void setCreatedby(String createdby) {
-        this.createdby = createdby;
-    }
-
-    public String getModifiedby() {
-        return modifiedby;
-    }
-
-    public void setModifiedby(String modifiedby) {
-        this.modifiedby = modifiedby;
-    }
-
-    public List<UserRoleEntity> getUserRoleEntities() {
-        return userRoleEntities;
-    }
-
-    public void setUserRoleEntities(List<UserRoleEntity> userRoleEntities) {
-        this.userRoleEntities = userRoleEntities;
+    public void setUsers(List<UserEntity> users) {
+        this.users = users;
     }
 }
