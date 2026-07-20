@@ -64,8 +64,7 @@
                                             <div class="col-xs-12">
                                                 <div class="col-sm-6">
                                                     <label class="name">Tên tòa nhà</label>
-
-                                                        <%--                                                <input type="text" id="name" class="form-control" name="">--%>
+                                                        <%-- <input type="text" id="name" class="form-control" name="">--%>
                                                     <form:input path="name" cssClass="form-control" />
                                                 </div>
                                                 <div class="col-sm-6">
@@ -83,15 +82,15 @@
                                                     <label for="form-field-9">Quận hiện có</label>
                                                     <form:select path="district" cssClass="form-control">
                                                         <form:option value=""  label="--Chọn Quận--"/>
-                                                        <form:options items="${districts}"  />
+                                                        <form:options items="${districts}" />
                                                     </form:select>
-                                                        <%--                                                <select name="" id="district" class="form-control">--%>
-                                                        <%--                                                    <option value="">--Chọn Quận--</option>--%>
-                                                        <%--                                                    <option value="1"> Quận 1</option>--%>
-                                                        <%--                                                    <option value="2"> Quận 2</option>--%>
-                                                        <%--                                                    <option value="3"> Quận Bình Thạnh</option>--%>
-                                                        <%--                                                    <option value="10"> Quận 10</option>--%>
-                                                        <%--                                                </select>--%>
+                                                        <%--<select name="" id="district" class="form-control">--%>
+                                                        <%-- <option value="">--Chọn Quận--</option>--%>
+                                                        <%--  <option value="1"> Quận 1</option>--%>
+                                                        <%--  <option value="2"> Quận 2</option>--%>
+                                                        <%-- <option value="3"> Quận Bình Thạnh</option>--%>
+                                                        <%--  <option value="10"> Quận 10</option>--%>
+                                                        <%-- </select>--%>
                                                 </div>
                                                 <div class="col-sm-5">
                                                     <label for="form-field-9">Phường</label>
@@ -164,13 +163,13 @@
                                                     <form:input path="managerPhone" cssClass="form-control" />
                                                 </div>
                                                 <div class="col-xs-2">
-                                                        <%--                                                <select name="" id="" class="form-control">--%>
-                                                        <%--                                                    <option value=""> -- Chọn Nhân Viên --</option>--%>
-                                                        <%--                                                    <option value=""> Trọng</option>--%>
-                                                        <%--                                                    <option value=""> Bình</option>--%>
-                                                        <%--                                                    <option value=""> Kha</option>--%>
-                                                        <%--                                                    <option value=""> Mạnh</option>--%>
-                                                        <%--                                                </select>--%>
+                                                        <%-- <select name="" id="" class="form-control">--%>
+                                                        <%-- <option value=""> -- Chọn Nhân Viên --</option>--%>
+                                                        <%--   <option value=""> Trọng</option>--%>
+                                                        <%--   <option value=""> Bình</option>--%>
+                                                        <%--   <option value=""> Kha</option>--%>
+                                                        <%--   <option value=""> Mạnh</option>--%>
+                                                        <%--</select>--%>
                                                     <security:authorize access="hasRole('MANAGER')">
                                                     <label for="" class="name"> Chọn nhân viên phụ trách</label>
                                                         <form:select path="staffId" cssClass="form-control">
@@ -184,8 +183,8 @@
                                         <div class="form-group">
                                             <div class="col-xs-12">
                                                 <div class="col-xs-6">
-                                                        <%--                                                <label for="" class="checkbox-inline">--%>
-                                                        <%--                                                    <input type="checkbox" name="" id="typeCode" value="noi-that"> Nội--%>
+                                                        <%--       <label for="" class="checkbox-inline">--%>
+                                                        <%--   <input type="checkbox" name="" id="typeCode" value="noi-that"> Nội--%>
                                                         <%--                                                    Thất--%>
 
                                                         <%--                                                </label>--%>
