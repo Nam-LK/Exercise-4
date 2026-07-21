@@ -35,9 +35,6 @@ public class UserEntity extends BaseEntity {
     @OneToMany(mappedBy="userEntity", fetch = FetchType.LAZY)
     private List<AssignBuildingEntity> assignBuildingEntities = new ArrayList<>();
 
-//    @OneToMany(mappedBy="users", fetch = FetchType.LAZY)
-//    private List<UserRoleEntity> userRoleEntities = new ArrayList<>();
-
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_role",
@@ -118,15 +115,6 @@ public class UserEntity extends BaseEntity {
     public void setAssignBuildingEntities(List<AssignBuildingEntity> assignBuildingEntities) {
         this.assignBuildingEntities = assignBuildingEntities;
     }
-
-//    public List<UserRoleEntity> getUserRoleEntities() {
-//        return userRoleEntities;
-//    }
-//
-//    public void setUserRoleEntities(List<UserRoleEntity> userRoleEntities) {
-//        this.userRoleEntities = userRoleEntities;
-//    }
-
 
     public List<RoleEntity> getRoles() {
         return roles;

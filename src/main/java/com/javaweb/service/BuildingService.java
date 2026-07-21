@@ -12,5 +12,4 @@ public interface BuildingService {
     List<BuildingSearchResponse> searchBuildings(BuildingSearchRequest buildingSearchRequest);
     void addOrUpdateBuilding(BuildingDTO buildingDTO);
     void deleteBuilding(Long[] ids);
-    BuildingDTO getBuildingById(Long id);
 }

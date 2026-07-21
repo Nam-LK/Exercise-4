@@ -15,7 +15,6 @@ public class AssignBuildingEntity extends BaseEntity {
     private BuildingEntity buildingEntity;
 
 
-
     public UserEntity getUserEntity() {
         return userEntity;
     }
@@ -31,4 +30,5 @@ public class AssignBuildingEntity extends BaseEntity {
     public void setBuildingEntity(BuildingEntity buildingEntity) {
         this.buildingEntity = buildingEntity;
     }
+
 }

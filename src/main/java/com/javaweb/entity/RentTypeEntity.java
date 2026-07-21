@@ -5,7 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "renttype")
-public class RentTypeEntity extends BaseEntity {
+public class RentTypeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

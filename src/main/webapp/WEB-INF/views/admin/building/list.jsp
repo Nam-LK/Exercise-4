@@ -51,7 +51,7 @@
 
                             <div class="widget-body" style="font-family: 'Times New Roman', Times, serif">
                                 <div class="widget-main">
-                                    <form:form id="listForm" action="${buildingListURL}" method="get" modelAttribute="buildingSearch">  <!--modelAttribute se
+                                    <form:form id="listForm" action="${buildingListURL}" method="get" modelAttribute="modelSearch">  <!--modelAttribute se
                                     cầm cái dto mình vừa gửi param vào fe để gắn vào các value cho input html để lưu dữ liệu mình mới nhập-->
                                         <div class="row">
                                         <div class="form-group">
@@ -81,7 +81,7 @@
 <%--                                                    </select>--%>
                                                     <form:select class="form-control" path="district">
                                                         <form:option value=""> --- Chon Quận --- </form:option>
-                                                        <form:options items="${districtCode}" />
+                                                        <form:options items="${districts}" />
 <%--                                                        <form:option value="Quan_2">Quận 2</form:option>--%>
 <%--                                                        <form:option value="Quan_3">Quận 3</form:option>--%>
 <%--                                                        <form:option value="Quan_10">Quận 10</form:option>--%>
@@ -90,13 +90,11 @@
 
                                                 <div class="col-xs-5">
                                                     <label for="" class="name">Phường</label>
-<%--                                                    <input type="text" class="form-control" name="ward" value="${buildingSearch.ward}">--%>
-                                                    <form:input path="ward" class = "form-control"/>
+                                                    <input type="text" class="form-control" name="ward" value="${modelSearch.ward}">
                                                 </div>
                                                 <div class="col-xs-5">
                                                     <label for="" class="name">Đường</label>
-<%--                                                    <input type="text" class="form-control" name="street" value="${modelSearch.street}">--%>
-                                                    <form:input path="street" class = "form-control"/>
+                                                    <input type="text" class="form-control" name="street" value="${modelSearch.street}">
                                                 </div>
                                             </div>
                                         </div>
@@ -105,19 +103,15 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-4">
                                                     <label for="" class="name">Số tầng hầm</label>
-<%--                                                    <input type="text" class="form-control" name="numberOfBasement" value="${modelSearch.numberOfBasement}">--%>
-
-                                                    <form:input path="numberOfBasement" class = "form-control"/>
+                                                    <input type="text" class="form-control" name="numberOfBasement" value="${modelSearch.numberOfBasement}">
                                                 </div>
                                                 <div class="col-xs-4">
                                                     <label for="" class="name">Hướng</label>
-<%--                                                    <input type="text" class="form-control" name="direction" value="${modelSearch.direction}">--%>
-                                                    <form:input path="direction" class = "form-control" />
+                                                    <input type="text" class="form-control" name="direction" value="${modelSearch.direction}">
                                                 </div>
                                                 <div class="col-xs-4">
                                                     <label for="" class="name">Hạng</label>
-<%--                                                    <input type="number" class="form-control" name="level" value="${modelSearch.level}">--%>
-                                                    <form:input path="level" class = "form-control" />
+                                                    <input type="number" class="form-control" name="level" value="${modelSearch.level}">
                                                 </div>
                                             </div>
                                         </div>
@@ -126,23 +120,19 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-3">
                                                     <label for="" class="name">Diện tích từ</label>
-<%--                                                    <input type="number" class="form-control" name="areaFrom" value="">--%>
-                                                    <form:input path="areaFrom" class = "form-control" />
+                                                    <input type="number" class="form-control" name="areaFrom" value="">
                                                 </div>
                                                 <div class="col-xs-3">
                                                     <label for="" class="name">Diện tích đến</label>
-<%--                                                    <input type="number" class="form-control" name="areaTo" value="">--%>
-                                                    <form:input path="areaTo" class = "form-control" />
+                                                    <input type="number" class="form-control" name="areaTo" value="">
                                                 </div>
                                                 <div class="col-xs-3">
                                                     <label for="" class="name">Giá thuê từ</label>
-<%--                                                    <input type="number" class="form-control" name="rentPriceFrom" value="">--%>
-                                                    <form:input path="rentPriceFrom" class = "form-control"  />
+                                                    <input type="number" class="form-control" name="rentPriceFrom" value="">
                                                 </div>
                                                 <div class="col-xs-3">
                                                     <label for="" class="name">Giá thuê đến</label>
-<%--                                                    <input type="number" class="form-control" name="rentPriceTo" value="">--%>
-                                                    <form:input path="rentPriceTo" class = "form-control"  />
+                                                    <input type="number" class="form-control" name="rentPriceTo" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -151,13 +141,11 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-5">
                                                     <label for="" class="name">Tên quản lý</label>
-<%--                                                    <input type="text" class="form-control" name="managerName" value="">--%>
-                                                    <form:input path="managerName" class = "form-control" />
+                                                    <input type="text" class="form-control" name="managerName" value="">
                                                 </div>
                                                 <div class="col-xs-5">
                                                     <label for="" class="name">Điện thoại quản lý</label>
-<%--                                                    <input type="number" class="form-control" name="managerPhone" value="">--%>
-                                                    <form:input path="managerPhone" class = "form-control" />
+                                                    <input type="number" class="form-control" name="managerPhone" value="">
                                                 </div>
                                                 <div class="col-xs-2">
                                                     <label for="" class="name">Chọn nhân viên phụ trách</label>
@@ -184,7 +172,7 @@
 <%--                                                        <input name="typeCode" type="checkbox" value="tang-tret"> Tầng trệt--%>
 <%--                                                    </label>--%>
 
-                                                    <form:checkboxes items="${buildingType}" path="typeCode" />
+                                                    <form:checkboxes items="${typeCodes}" path="typeCode" />
                                                 </div>
                                             </div>
                                         </div>

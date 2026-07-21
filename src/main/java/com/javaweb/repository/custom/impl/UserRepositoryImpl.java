@@ -17,15 +17,15 @@ import java.util.List;
 @Repository
 public class UserRepositoryImpl implements UserRepositoryCustom {
 
-//	private final UserRepository userRepository;
+	private final UserRepository userRepository;
 	@PersistenceContext
 	private EntityManager entityManager;
 	@Autowired
 	private CustomerRepository customerRepository;
 
-//	public UserRepositoryImpl(UserRepository userRepository) {
-//		this.userRepository = userRepository;
-//	}
+	public UserRepositoryImpl(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
 
 	@Override
 	public List<UserEntity> findByRole(String roleCode) {

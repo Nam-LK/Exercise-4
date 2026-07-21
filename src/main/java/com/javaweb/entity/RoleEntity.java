@@ -34,11 +34,8 @@ public class RoleEntity extends BaseEntity {
         this.id = id;
     }
 
-//    @OneToMany(mappedBy="roles",fetch = FetchType.LAZY)
-//    private List<UserRoleEntity> userRoleEntities = new ArrayList<>();
-
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private List<UserEntity> users = new ArrayList<>();
+    @ManyToMany(mappedBy = "roles")
+    private List<UserEntity> users;
 
     public String getName() {
         return name;

@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "customer")
-public class CustomerEntity {
+public class CustomerEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,8 +20,6 @@ public class CustomerEntity {
 
     @Column(name = "email")
     private String email;
-
-
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     private List<AssignCustomerEntity> assignCustomers = new ArrayList<>();
@@ -60,8 +58,6 @@ public class CustomerEntity {
     public void setEmail(String email) {
         this.email = email;
     }
-
-
 
     public List<AssignCustomerEntity> getAssignCustomers() {
         return assignCustomers;

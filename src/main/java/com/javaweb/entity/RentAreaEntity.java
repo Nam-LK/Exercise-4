@@ -17,7 +17,6 @@ public class RentAreaEntity extends BaseEntity {
     @JoinColumn(name = "buildingid")
     private BuildingEntity building;
 
-
     public Long getId() {
         return id;
     }

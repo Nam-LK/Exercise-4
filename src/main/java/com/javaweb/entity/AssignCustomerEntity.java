@@ -18,7 +18,6 @@ public class AssignCustomerEntity extends BaseEntity {
     @JoinColumn(name = "customerid")
     private CustomerEntity customer;
 
-
     public Long getId() {
         return id;
     }
@@ -42,6 +41,5 @@ public class AssignCustomerEntity extends BaseEntity {
     public void setCustomer(CustomerEntity customer) {
         this.customer = customer;
     }
-
 
 }
