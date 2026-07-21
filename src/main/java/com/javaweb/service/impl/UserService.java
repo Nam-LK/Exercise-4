@@ -99,12 +99,11 @@ public class UserService implements IUserService {
 
     @Override
     public void updateAssignment(AssignmentBuildingDTO assignmentBuildingDTO) {
-        buildingRepository.updateAssignBuilding(assignmentBuildingDTO);
+
     }
 
     @Override
     public void updateAssign(AssignCustomerDTO assignCustomerDTO) {
-//        userRepository.updateAssign(assignCustomerDTO);
     }
 
 

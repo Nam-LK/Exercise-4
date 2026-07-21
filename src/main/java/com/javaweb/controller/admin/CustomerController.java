@@ -41,7 +41,7 @@ public class CustomerController {
     @GetMapping(value = "/admin/customer-edit-{id}")
     public ModelAndView customerEdit(@PathVariable(value = "id") Long id, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("admin/building/edit");
-        CustomerDTO customerDTO = customerService.getCustomer(id);
+        CustomerDTO customerDTO = customerService.getCustomerById(id);
         mav.addObject("cusEdit", customerDTO);
         mav.addObject("transactionType", TransactionType.transactionType());
         return mav;

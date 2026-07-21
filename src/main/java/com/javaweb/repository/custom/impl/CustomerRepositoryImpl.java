@@ -23,11 +23,6 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
     @PersistenceContext
     private EntityManager em;
 
-    @Autowired
-    private CustomerRepository customerRepository;
-
-    @Autowired
-    private UserRepository userRepository;
     public static void joinTable(CustomerSearchBuilder builder, StringBuilder sql){
         Long staffId = builder.getStaffId();
         if (staffId != null) {
@@ -80,31 +75,5 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
         sql.append(where);
         Query query = em.createNativeQuery(sql.toString(), CustomerEntity.class);
         return query.getResultList();
-    }
-
-    @Override
-    public void addOrUpdateCustomer(CustomerEntity customerEntity) {
-        customerRepository.save(customerEntity);
-    }
-
-    @Override
-    public CustomerEntity getCustomer(Long customerId) {
-        return customerRepository.findById(customerId).get();
-    }
-
-    @Override
-    public void updateAssign(AssignCustomerDTO assign) {
-        CustomerEntity customerEntity = customerRepository.findById(assign.getCustomerId()).get();
-        List<AssignCustomerEntity> list = new ArrayList<>();
-        List<Long> staffIds = assign.getStaffs();
-        for (Long staffId : staffIds) {
-            UserEntity userEntity = userRepository.findById(staffId).get();
-            AssignCustomerEntity assignCustomerEntity = new AssignCustomerEntity();
-            assignCustomerEntity.setStaff(userEntity);
-            assignCustomerEntity.setCustomer(customerEntity);
-            list.add(assignCustomerEntity);
-        }
-        customerEntity.setAssignCustomers(list);
-        customerRepository.save(customerEntity);
     }
 }

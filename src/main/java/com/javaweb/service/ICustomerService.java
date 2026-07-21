@@ -10,5 +10,5 @@ public interface ICustomerService {
     List<CustomerSearchResponse> searchCustomer(CustomerSearchRequest searchRequest);
     void deleteCustomer(Long[] id);
     void addOrUpdateCustomer(CustomerDTO customerDTO);
-    CustomerDTO getCustomer(Long id);
+    CustomerDTO getCustomerById(Long id);
 }

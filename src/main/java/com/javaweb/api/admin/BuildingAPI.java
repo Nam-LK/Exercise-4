@@ -32,6 +32,7 @@ public class BuildingAPI {
     public void deleteBuilding(@PathVariable Long[] ids){
         buildingService.deleteBuilding(ids);
     }
+
     @GetMapping("/{id}/staffs")
     public ResponseDTO loadAllStaffs(@PathVariable Long id){
         ResponseDTO result = buildingService.listStaffs(id);
@@ -41,7 +42,7 @@ public class BuildingAPI {
 
     @PostMapping("/assignment")
     public void updateAssignment(@RequestBody AssignmentBuildingDTO assignmentBuildingDTO){
-        userService.updateAssignment(assignmentBuildingDTO);
+
     }
 
 }

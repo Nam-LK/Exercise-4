@@ -20,8 +20,6 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 	private final UserRepository userRepository;
 	@PersistenceContext
 	private EntityManager entityManager;
-	@Autowired
-	private CustomerRepository customerRepository;
 
 	public UserRepositoryImpl(UserRepository userRepository) {
 		this.userRepository = userRepository;

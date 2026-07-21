@@ -33,7 +33,6 @@ public class BuildingController {
 
         //trả kết quả trả về
         mav.addObject("buildingResponse",buildingService.searchBuildings(buildingSearchRequest));
-
         return mav;
     }
 
@@ -48,7 +47,10 @@ public class BuildingController {
     @GetMapping(value = "/admin/building-edit-{id}")
     public ModelAndView buidlingEdit(@PathVariable(value = "id") Long id, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("admin/building/edit");
-
+        BuildingDTO building = buildingService.getBuildingById(id);
+        mav.addObject("buildingUpdate", building);
+        mav.addObject("districts", DistrictCode.type());
+        mav.addObject("typeCodes", BuildingType.type());
         return mav;
     }
 }

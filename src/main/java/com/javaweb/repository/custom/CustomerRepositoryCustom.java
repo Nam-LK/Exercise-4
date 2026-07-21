@@ -8,7 +8,4 @@ import java.util.List;
 
 public interface CustomerRepositoryCustom {
     List<CustomerEntity> searchCustomer(CustomerSearchBuilder customerSearchBuilder);
-    void addOrUpdateCustomer(CustomerEntity customerEntity);
-    CustomerEntity getCustomer(Long customerId);
-    void updateAssign(AssignCustomerDTO assign);
 }
