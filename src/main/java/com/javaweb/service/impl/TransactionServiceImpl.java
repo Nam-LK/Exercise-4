@@ -18,14 +18,14 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     private TransactionResponseConverter transactionResponseConverter;
 
-    @Override
-    public List<TransactionResponse> transactionList(String code, Long id) {
-        List<TransactionEntity> list = transactionRepository.findByCustomerIdAndCode(id,code);
-        List<TransactionResponse> responseList = new ArrayList<>();
-        for (TransactionEntity transactionEntity : list) {
-            TransactionResponse transactionResponse = transactionResponseConverter.toTransactionResponse(transactionEntity);
-            responseList.add(transactionResponse);
-        }
-        return responseList;
-    }
+//    @Override
+//    public List<TransactionResponse> transactionList(String code, Long id) {
+//        List<TransactionEntity> list = transactionRepository.findByCustomerIdAndCode(id,code);
+//        List<TransactionResponse> responseList = new ArrayList<>();
+//        for (TransactionEntity transactionEntity : list) {
+//            TransactionResponse transactionResponse = transactionResponseConverter.toTransactionResponse(transactionEntity);
+//            responseList.add(transactionResponse);
+//        }
+//        return responseList;
+//    }
 }

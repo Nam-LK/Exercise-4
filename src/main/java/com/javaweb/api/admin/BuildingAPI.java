@@ -45,7 +45,6 @@ public class BuildingAPI {
     @PostMapping("/assignment")
     public void updateAssignment(@RequestBody AssignmentBuildingDTO assignmentBuildingDTO){
 
-
     }
 
 }

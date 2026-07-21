@@ -47,8 +47,8 @@ public class CustomerController {
         CustomerDTO customer = customerService.getCustomerById(id);
         mav.addObject("cusEdit", customer);
         mav.addObject("transactionType", TransactionType.transactionType());
-        mav.addObject("", transactionService.transactionList("CSKH", id)); // lấy cái cskh
-        mav.addObject("", transactionService.transactionList("DDX", id)); // lấy cái dẫn đi xem
+//        mav.addObject("", transactionService.transactionList("CSKH", id)); // lấy cái cskh
+//        mav.addObject("", transactionService.transactionList("DDX", id)); // lấy cái dẫn đi xem
         return mav;
     }
 }

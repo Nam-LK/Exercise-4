@@ -46,6 +46,5 @@ public class CustomerAPI {
     @PostMapping("/transaction")
     public void addTransaction(@RequestBody AssignCustomerDTO assignCustomerDTO){
 
-
     }
 }
