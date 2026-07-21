@@ -5,7 +5,9 @@ public class CustomerDTO extends AbstractDTO{
     private String name;
     private String customerPhone;
     private String email;
+
     private String managementStaff;
+
     private String companyName;
     private String demand;
     private String status;

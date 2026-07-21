@@ -30,7 +30,9 @@ public class BuildingAPI {
 
     @DeleteMapping("/api/building/{id}")
     public void deleteBuilding(@PathVariable Long[] ids){
-        buildingService.deleteBuilding(ids);
+        if(ids.length >0) {
+            buildingService.deleteBuilding(ids);
+        }
     }
 
     @GetMapping("/{id}/staffs")
@@ -42,6 +44,7 @@ public class BuildingAPI {
 
     @PostMapping("/assignment")
     public void updateAssignment(@RequestBody AssignmentBuildingDTO assignmentBuildingDTO){
+
 
     }
 

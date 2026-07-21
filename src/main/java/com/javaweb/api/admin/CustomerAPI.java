@@ -1,13 +1,10 @@
 package com.javaweb.api.admin;
 
 import com.javaweb.model.dto.AssignCustomerDTO;
-import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.service.BuildingService;
 import com.javaweb.service.ICustomerService;
-import com.javaweb.service.IUserService;
-import com.javaweb.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +14,6 @@ public class CustomerAPI {
     private ICustomerService customerService;
     @Autowired
     private BuildingService buildingService;
-    @Autowired
-    private IUserService iUserService;
 
     @PostMapping("/amdin/customer-edit")
     public void addCustomer(@RequestBody CustomerDTO customerDTO){ //thêm mới tòa nhà
@@ -45,7 +40,12 @@ public class CustomerAPI {
 
     @PostMapping("/assignment")
     public void updateAssignment(@RequestBody AssignCustomerDTO assignCustomerDTO){
-        iUserService.updateAssign(assignCustomerDTO);
+
+    }
+
+    @PostMapping("/transaction")
+    public void addTransaction(@RequestBody AssignCustomerDTO assignCustomerDTO){
+
 
     }
 }

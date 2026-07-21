@@ -5,6 +5,7 @@ import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.request.CustomerSearchRequest;
 import com.javaweb.service.ICustomerService;
 import com.javaweb.service.IUserService;
+import com.javaweb.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,8 @@ public class CustomerController {
     private IUserService userService;
     @Autowired
     private ICustomerService customerService;
+    @Autowired
+    private TransactionService transactionService;
 
     @GetMapping(value = "/admin/customer-list")
     public ModelAndView customerList(@ModelAttribute("customerSearch")CustomerSearchRequest customerSearchRequest,
@@ -41,9 +44,11 @@ public class CustomerController {
     @GetMapping(value = "/admin/customer-edit-{id}")
     public ModelAndView customerEdit(@PathVariable(value = "id") Long id, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("admin/building/edit");
-        CustomerDTO customerDTO = customerService.getCustomerById(id);
-        mav.addObject("cusEdit", customerDTO);
+        CustomerDTO customer = customerService.getCustomerById(id);
+        mav.addObject("cusEdit", customer);
         mav.addObject("transactionType", TransactionType.transactionType());
+        mav.addObject("", transactionService.transactionList("CSKH", id)); // lấy cái cskh
+        mav.addObject("", transactionService.transactionList("DDX", id)); // lấy cái dẫn đi xem
         return mav;
     }
 }

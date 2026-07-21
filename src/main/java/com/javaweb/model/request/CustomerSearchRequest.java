@@ -1,6 +1,7 @@
 package com.javaweb.model.request;
 
 public class CustomerSearchRequest {
+
     private String customerName;
     private String phoneNumber;
     private String email;
