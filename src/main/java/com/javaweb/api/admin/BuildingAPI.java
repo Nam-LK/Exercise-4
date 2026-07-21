@@ -50,6 +50,4 @@ public class BuildingAPI {
         TypeCodeResponseDTO typeCodeResponseDTO = iBuildingService.listTypeCode(buildingId);
         return typeCodeResponseDTO;
     }
-
-
 }
