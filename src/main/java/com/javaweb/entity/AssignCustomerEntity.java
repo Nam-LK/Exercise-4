@@ -1,8 +1,6 @@
 package com.javaweb.entity;
 
 import javax.persistence.*;
-import java.util.Date;
-
 @Entity
 @Table(name = "assignmentcustomer")
 public class AssignCustomerEntity extends BaseEntity {

@@ -22,7 +22,7 @@ public class CustomerController {
     @Autowired
     private ICustomerService customerService;
     @Autowired
-    private TransactionService transactionService;
+    private TransactionService transactionSerice;
 
     @GetMapping(value = "/admin/customer-list")
     public ModelAndView customerList(@ModelAttribute("customerSearch")CustomerSearchRequest customerSearchRequest,
