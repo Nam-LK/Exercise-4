@@ -36,15 +36,13 @@ public class BuildingAPI {
     }
 
     @GetMapping("/{id}/staffs")
-    public ResponseDTO loadAllStaffs(@PathVariable Long id){
+    public ResponseDTO loadAllStaffs(@PathVariable Long id){ // Khi ấn vào nút giao tòa nhà cho nhân viên quản lý
         ResponseDTO result = buildingService.listStaffs(id);
         return result;
-        
     }
 
     @PostMapping("/assignment")
     public void updateAssignment(@RequestBody AssignmentBuildingDTO assignmentBuildingDTO){
-
+        buildingService.updateAssignBuilding(assignmentBuildingDTO);
     }
-
 }

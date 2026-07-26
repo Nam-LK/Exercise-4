@@ -34,17 +34,17 @@ public class CustomerAPI {
 
     @GetMapping("/{id}/staffs")
     public ResponseDTO loadAllStaffs(@PathVariable Long id){
-        ResponseDTO result = buildingService.listStaffs(id);
+        ResponseDTO result = customerService.listStaffs(id);
         return result;
     }
 
     @PostMapping("/assignment")
     public void updateAssignment(@RequestBody AssignCustomerDTO assignCustomerDTO){
-
+        customerService.updateAssignCustomer(assignCustomerDTO);
     }
 
     @PostMapping("/transaction")
-    public void addTransaction(@RequestBody AssignCustomerDTO assignCustomerDTO){
+    public void addOrUpdateTransaction(@RequestBody AssignCustomerDTO assignCustomerDTO){
 
     }
 }

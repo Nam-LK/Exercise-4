@@ -7,11 +7,13 @@ import com.javaweb.converter.BuildingSearchResponseConverter;
 import com.javaweb.entity.AssignBuildingEntity;
 import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.UserEntity;
+import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.model.response.StaffResponseDTO;
+import com.javaweb.repository.AssignBuildingRepository;
 import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.UserRepository;
 import com.javaweb.service.BuildingService;
@@ -33,6 +35,9 @@ public class BuildingServiceImpl implements BuildingService {
 
     @Autowired
     private BuildingEditConverter buildingEditConverter;
+
+    @Autowired
+    private AssignBuildingRepository assignBuildingRepository;
 
     @Override
     public ResponseDTO listStaffs(Long buildingId) {
@@ -91,5 +96,29 @@ public class BuildingServiceImpl implements BuildingService {
         BuildingEntity buildingEntity = buildingRepository.findById(id).get();
         BuildingDTO buildingDTO = buildingEditConverter.toBuildingDTO(buildingEntity);
         return buildingDTO;
+    }
+
+    @Override
+    public void updateAssignBuilding(AssignmentBuildingDTO assignmentBuildingDTO) {
+        List<AssignBuildingEntity> assignBuilding = assignBuildingRepository.findByBuildingId(assignmentBuildingDTO.getBuildingId());
+        assignBuilding.clear();
+
+        List<Long> staffIds = assignmentBuildingDTO.getStaffs();//3,4
+        List<UserEntity> userEntities = userRepository.findByIdIn(staffIds);
+
+        BuildingEntity buildingEntity = buildingRepository.findById(assignmentBuildingDTO.getBuildingId()).get();
+
+        for (UserEntity userEntity : userEntities) {
+            //gắn lại cái UserEntity vào cái assignBuilding
+            if(!assignBuilding.contains(userEntity)) {
+                AssignBuildingEntity assignBuildingEntity = new AssignBuildingEntity();
+                assignBuildingEntity.setUserEntity(userEntity);
+                assignBuildingEntity.setBuildingEntity(buildingEntity);
+                assignBuilding.add(assignBuildingEntity);
+            }
+        }
+
+        buildingEntity.setAssignBuildingEntityList(assignBuilding);
+        buildingRepository.save(buildingEntity);
     }
 }
