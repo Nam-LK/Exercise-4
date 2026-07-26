@@ -22,7 +22,7 @@ public class CustomerController {
     @Autowired
     private ICustomerService customerService;
     @Autowired
-    private TransactionService transactionSerice;
+    private TransactionService transactionService;
 
     @GetMapping(value = "/admin/customer-list")
     public ModelAndView customerList(@ModelAttribute("customerSearch")CustomerSearchRequest customerSearchRequest,
@@ -47,8 +47,8 @@ public class CustomerController {
         CustomerDTO customer = customerService.getCustomerById(id);
         mav.addObject("cusEdit", customer);
         mav.addObject("transactionType", TransactionType.transactionType());
-//        mav.addObject("", transactionService.transactionList("CSKH", id)); // lấy cái cskh
-//        mav.addObject("", transactionService.transactionList("DDX", id)); // lấy cái dẫn đi xem
+        mav.addObject("cskh", transactionService.transactionList("CSKH", id));
+        mav.addObject("ddx", transactionService.transactionList("DDX", id));
         return mav;
     }
 }

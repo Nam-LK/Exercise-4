@@ -44,7 +44,12 @@ public class CustomerAPI {
     }
 
     @PostMapping("/transaction")
-    public void addOrUpdateTransaction(@RequestBody AssignCustomerDTO assignCustomerDTO){
+    public void createTransaction(@RequestBody AssignCustomerDTO assignCustomerDTO){
+
+    }
+
+    @PostMapping("/{transactionId}/transaction")
+    public void updateTransaction(@PathVariable Long transactionId, @RequestBody AssignCustomerDTO assignCustomerDTO){
 
     }
 }
