@@ -2,9 +2,12 @@ package com.javaweb.api.admin;
 
 import com.javaweb.model.dto.AssignCustomerDTO;
 import com.javaweb.model.dto.CustomerDTO;
+import com.javaweb.model.dto.TransactionDTO;
 import com.javaweb.model.response.ResponseDTO;
+import com.javaweb.model.response.TransactionResponse;
 import com.javaweb.service.BuildingService;
 import com.javaweb.service.ICustomerService;
+import com.javaweb.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +17,8 @@ public class CustomerAPI {
     private ICustomerService customerService;
     @Autowired
     private BuildingService buildingService;
+    @Autowired
+    private TransactionService transactionService;
 
     @PostMapping("/amdin/customer-edit")
     public void addCustomer(@RequestBody CustomerDTO customerDTO){ //thêm mới tòa nhà
@@ -43,13 +48,13 @@ public class CustomerAPI {
         customerService.updateAssignCustomer(assignCustomerDTO);
     }
 
-    @PostMapping("/transaction")
-    public void createTransaction(@RequestBody AssignCustomerDTO assignCustomerDTO){
-
+    @PostMapping("/{cusId}/transaction")
+    public void createTransaction(@PathVariable Long cusId, @RequestBody TransactionDTO transactionDTO){
+        transactionService.createOrUpdateTransaction(cusId, transactionDTO);
     }
 
-    @PostMapping("/{transactionId}/transaction")
-    public void updateTransaction(@PathVariable Long transactionId, @RequestBody AssignCustomerDTO assignCustomerDTO){
-
+    @PostMapping("/{cusId}/{transactionId}/transaction")
+    public void updateTransaction(@PathVariable Long cusId, @PathVariable Long transactionId, @RequestBody TransactionDTO transactionDTO){
+        transactionService.createOrUpdateTransaction(cusId, transactionDTO);
     }
 }
