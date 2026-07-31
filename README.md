@@ -1,5 +1,5 @@
  - Tìm kiếm tòa nhà sử dụng (JDBC -> JPA ->Spring Data Jpa) 
- - Thêm, xóa sử tòa nhà 
+ - Thêm, xóa sửa tòa nhà 
  - Tìm kiếm, Thêm, Xóa, Sửa khách hàng 
- - Tìm kiếm thêm sửa giao dịch với khách hàng 
+ - Tìm kiếm, thêm, sửa và giao dịch với khách hàng 
  - Đăng nhập có phân quyền(Manager, Staff, User)
