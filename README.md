@@ -3,3 +3,4 @@
  - Tìm kiếm, Thêm, Xóa, Sửa khách hàng 
  - Tìm kiếm, thêm, sửa và giao dịch với khách hàng 
  - Đăng nhập có phân quyền(Manager, Staff, User)
+ - Frontend : dùng bootstrap và jquery, ajax
