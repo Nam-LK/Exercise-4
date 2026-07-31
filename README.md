@@ -1,0 +1,3 @@
+- Phần lớn các entity quan hệ với nhau bởi @OneToMany (tức có tạo bảng phụ cho việc @ManyToMany = @OneToMany + @ManyToOne)
+- Chưa có phân quyền về manager và staff khi truy cập vào trang /admin và phân trang
+- Hoàn thiện hết các chức năng cho cả tòa nhà và khách hàng  
