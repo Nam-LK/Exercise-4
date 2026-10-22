@@ -1,3 +1,4 @@
+
 package com.javaweb.api.admin;
 
 import com.javaweb.model.dto.BuildingDTO;
@@ -5,7 +6,6 @@ import com.javaweb.model.response.StaffResponseDTO;
 import com.javaweb.model.response.TypeCodeResponseDTO;
 import com.javaweb.service.IBuildingService;
 import com.javaweb.service.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,11 +13,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/building")
 public class BuildingAPI {
-    private IUserService iUserService;
-    private IBuildingService iBuildingService;
 
-    @Autowired
-    public BuildingAPI(IUserService iUserService, IBuildingService iBuildingService) {
+    private final IUserService iUserService;
+    private final IBuildingService iBuildingService;
+
+    public BuildingAPI(
+            IUserService iUserService,
+            IBuildingService iBuildingService) {
         this.iUserService = iUserService;
         this.iBuildingService = iBuildingService;
     }
@@ -28,26 +30,30 @@ public class BuildingAPI {
     }
 
     @PutMapping("/{buildingId}")
-    public void updateBuilding(@RequestBody BuildingDTO buildingDTO, @PathVariable Long buildingId) { // thừa buildingIdneeus bỏ cũng được nhma viết vào cho nhớ hàm để lấy id từ request
+    public void updateBuilding(
+            @RequestBody BuildingDTO buildingDTO,
+            @PathVariable Long buildingId) {
+
+        buildingDTO.setId(buildingId);
         iBuildingService.createOrUpdateBuilding(buildingDTO);
     }
 
     @GetMapping("/{buildingId}/staffs")
-    public StaffResponseDTO loadStaff(@PathVariable Long buildingId) { //lấy ra danh sách nhân viên quản lý 1 toàn nhà ở bảng danh sách
-        StaffResponseDTO staffResponseDTO = iUserService.listStaff(buildingId);
-        return staffResponseDTO;
+    public StaffResponseDTO loadStaff(
+            @PathVariable Long buildingId) {
+        return iUserService.listStaff(buildingId);
     }
 
     @DeleteMapping
     public void deleteBuilding(@RequestBody List<Long> ids) {
-        if (ids.size() > 0) {
+        if (ids != null && !ids.isEmpty()) {
             iBuildingService.deleteBuilding(ids);
         }
     }
 
     @GetMapping("/{buildingId}/types")
-    public TypeCodeResponseDTO loadTypeCode(@PathVariable Long buildingId) {
-        TypeCodeResponseDTO typeCodeResponseDTO = iBuildingService.listTypeCode(buildingId);
-        return typeCodeResponseDTO;
+    public TypeCodeResponseDTO loadTypeCode(
+            @PathVariable Long buildingId) {
+        return iBuildingService.listTypeCode(buildingId);
     }
 }
